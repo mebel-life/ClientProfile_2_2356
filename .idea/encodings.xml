@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/ClientProfileAut/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileAvatar/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileAvatar/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileCommon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileCommon/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileFacade/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileFacade/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileLoader/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileNotification/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileRecognition/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ClientProfileUpdate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
