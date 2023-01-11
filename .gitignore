@@ -8,9 +8,6 @@
 /dataSources.local.xml
 # Zeppelin ignored files
 /ZeppelinRemoteNotebooks/
-.*
-!.keepdir
-!.travis.yml
-var/log/*
-var/tmp/*
-vendor/
+target/
+*.iml
+.idea/
