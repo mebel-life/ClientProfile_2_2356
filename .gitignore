@@ -11,3 +11,12 @@
 target/
 *.iml
 .idea/
+/ClientProfileUpdate/target
+/ClientProfileAut/target
+/ClientProfileAvatar/target
+/ClientProfileCommon/target
+/ClientProfileFacade/target
+/ClientProfileLoader/target
+/ClientProfileNotification/target
+/ClientProfileRecognition/target
+/ClientProfileService/target
