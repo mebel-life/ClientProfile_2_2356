@@ -31,7 +31,8 @@ public class SwaggerConfig {
                 "MyApp REST API",
                 "1.0",
                 "Terms of service",
-                new Contact("MyAppDevTeam", "http://myapps.com", "support@myapp.com"),
-                "License of API", "API license URL", emptyList());
+                new Contact("Anton Zaynutdinov", "https://www.appsdeveloperblog.com",
+                        "zaunytdinov@mail.ru"),
+                "Link to the project", "https://gitlab.com/academy39/ClientProfile", emptyList());
     }
 }
