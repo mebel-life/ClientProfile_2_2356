@@ -5,6 +5,17 @@ import org.client.entity.AvatarDto;
 import org.client.service.AvatarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
+=======
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+>>>>>>> 9d6c5603479e78aab97212b5d2d6b6ef272c580b
 import java.util.NoSuchElementException;
 
 
@@ -34,13 +46,20 @@ public class AvatarController {
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<?> downloadAvatar(@PathVariable String uuid) {
+    public ResponseEntity<?> downloadAvatar(@PathVariable String uuid) throws IOException {
         logger.info("Downloading avatar");
-        byte [] avatar = null;
+        byte [] avatar;
         try{
             avatar = avatarService.getAvatar(uuid);
         } catch (NoSuchElementException e) {
             logger.warn(String.format("Avatar with %s uuid not found", uuid));
+            var imgFile = new ClassPathResource("image/error.jpg");
+            byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+
+            return ResponseEntity
+                    .ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(bytes);
         }
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/png"))
                 .body(avatar);
@@ -58,6 +77,5 @@ public class AvatarController {
         }
         return ResponseEntity.status(HttpStatus.OK)
                 .body(avatarDto);
-
     }
 }
