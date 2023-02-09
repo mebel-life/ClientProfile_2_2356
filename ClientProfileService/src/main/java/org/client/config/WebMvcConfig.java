@@ -1,6 +1,5 @@
 package org.client.config;
 
-
 import org.client.controller.AddressController;
 import org.client.controller.IndividualController;
 import org.client.service.AddressService;
@@ -65,5 +64,4 @@ public class WebMvcConfig {
                 (StringUtils.hasText(basePath) ||
                         ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT));
     }
-
 }
