@@ -1,6 +1,7 @@
 package org.client.service.impl;
 
-import org.client.entities.Individual;
+import org.client.entity.Individual;
+import org.client.entity.RFPassport;
 import org.client.repositories.IndividualRepository;
 import org.client.service.IndividualService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,10 @@ public class IndividualServiceImpl implements IndividualService {
     @Transactional
     public void saveIndividual(Individual individual) {
         individualRepository.save(individual);
+    }
+    @Override
+    public void saveRFPassport(RFPassport rfPassport, String icp) {
+        Individual individual = findByIcp(icp);
+        individual.setRfPassport(rfPassport);
     }
 }

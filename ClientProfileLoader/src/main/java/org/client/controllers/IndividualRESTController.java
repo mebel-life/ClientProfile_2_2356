@@ -1,10 +1,12 @@
 package org.client.controllers;
 
-import org.client.entities.Individual;
+import org.client.entity.Individual;
+import org.client.entity.RFPassport;
 import org.client.service.IndividualService;
 import org.client.util.DataInfoHandler;
 import org.client.util.NoSuchIndividualException;
 import org.client.util.IndividualWithSuchICPExists;
+import org.client.util.PassportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST controller with get and post methods
+ * REST controller for individual
  */
 
 @RestController
@@ -47,6 +49,17 @@ public class IndividualRESTController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
             throw new IndividualWithSuchICPExists("Individual with such icp exists");
+        }
+    }
+    @PutMapping("/clients/{icp}")
+    public ResponseEntity<DataInfoHandler> saveRFPassport(@RequestBody RFPassport rfPassport, @PathVariable("icp") String icp) {
+        try {
+            Individual individual = individualService.findByIcp(icp);
+            individual.setRfPassport(rfPassport);
+            logger.info("Saving RF Passport");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (DataIntegrityViolationException e) {
+            throw new PassportException("Invalid passport data");
         }
     }
 

@@ -32,6 +32,10 @@ public class Individual {
     private Documents documents;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rfPassport")
+    private RFPassport rfPassport;
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contacts")
     private ContactMedium contacts;
 
