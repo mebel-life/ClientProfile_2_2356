@@ -7,14 +7,14 @@ import org.client.Entity.RFPassport;
 import org.client.dto.DocumentDto;
 import org.client.service.DocumentService;
 import org.client.service.RFPassportService;
-import org.hibernate.cfg.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @AllArgsConstructor
 @Service

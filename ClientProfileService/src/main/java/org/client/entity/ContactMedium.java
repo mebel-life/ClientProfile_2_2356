@@ -7,7 +7,14 @@ import lombok.NoArgsConstructor;
 import org.client.entity.Contacts.Email;
 import org.client.entity.Contacts.PhoneNumber;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.Collection;
 
 @Data
