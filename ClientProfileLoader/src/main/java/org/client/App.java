@@ -4,9 +4,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.client.dto.IndividualDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 
+@EnableJms
 @EnableKafka
 @SpringBootApplication
 public class App {
