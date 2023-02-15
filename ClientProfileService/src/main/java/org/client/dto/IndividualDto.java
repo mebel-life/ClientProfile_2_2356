@@ -24,7 +24,7 @@ public class IndividualDto {
     @JsonProperty(Fields.UUID)
     private String uuid;
 
-    @Schema(example = "312", description = "Идентификатор Клиентского профиля")
+    @Schema(example = "1000000", description = "Идентификатор Клиентского профиля")
     @JsonProperty(Fields.ICP)
     private String icp;
 
