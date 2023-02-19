@@ -1,5 +1,7 @@
 package org.client.controller;
 
+import com.ibm.mq.MQException;
+import com.ibm.mq.jakarta.jms.MQQueue;
 import lombok.RequiredArgsConstructor;
 import org.client.entity.AvatarDto;
 import org.client.service.AvatarService;
@@ -9,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.jms.Destination;
+import javax.jms.JMSException;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 
@@ -29,13 +34,16 @@ import java.util.NoSuchElementException;
 @RequestMapping("/avatar")
 @RequiredArgsConstructor
 public class AvatarController {
-
     Logger logger = LoggerFactory.getLogger(AvatarController.class);
+
+    private final JmsTemplate jmsTemplate;
     private final AvatarService avatarService;
 
     @PostMapping
-    public ResponseEntity<?> uploadAvatar(@RequestParam("avatar") MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadAvatar(@RequestParam("avatar") MultipartFile file) throws IOException, JMSException {
         logger.info("Uploading avatar");
+        MQQueue avatarMQQue = new com.ibm.mq.jakarta.jms.MQQueue("AVATAR.REQUEST");
+        jmsTemplate.convertAndSend((Destination) avatarMQQue,file);
         String uploadAvatar = avatarService.uploadAvatar(file);
         return ResponseEntity.status(HttpStatus.OK).body(uploadAvatar);
     }
@@ -43,8 +51,8 @@ public class AvatarController {
     @GetMapping("/{uuid}")
     public ResponseEntity<?> downloadAvatar(@PathVariable String uuid) throws IOException {
         logger.info("Downloading avatar");
-        byte [] avatar;
-        try{
+        byte[] avatar;
+        try {
             avatar = avatarService.getAvatar(uuid);
         } catch (NoSuchElementException e) {
             logger.warn(String.format("Avatar with %s uuid not found", uuid));
