@@ -1,6 +1,8 @@
 package org.client.config;
 
-import org.client.repository.IndividualRepository;
+
+import org.client.masking.MaskingService;
+import org.client.masking.impl.MaskingServiceImpl;
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.client.service.impl.AddressServiceImpl;
