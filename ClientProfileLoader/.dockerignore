@@ -1,0 +1,6 @@
+# ignore .git and .idea folders
+.git
+.idea
+
+# ignore Dockerfile file
+Dockerfile
