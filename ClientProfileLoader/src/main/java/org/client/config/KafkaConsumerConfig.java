@@ -1,12 +1,12 @@
 package org.client.config;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.LongDeserializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
-import org.client.dto.WalletDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
@@ -29,61 +29,14 @@ import java.util.*;
 
 @Configuration
 @EnableWebMvc
+@Component
 public class KafkaConsumerConfig {
 
-    @Value("${spring.kafka.bootstrap-servers}")
-    private String kafkaServer;
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerConfig.class);
 
-    @Value("${spring.kafka.consumer.group-id}")
-    private String kafkaGroupId;
-
-    @Bean
-    public Map<String, Object> consumerConfigs() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
-        return props;
-    }
-
-    @Bean
-    public ConsumerFactory<Long, IndividualDto> consumerFactoryIndividual() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
-
-    @Bean
-    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactoryIndividual() {
-        ConcurrentKafkaListenerContainerFactory<Long, IndividualDto> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactoryIndividual());
-        return factory;
-    }
-
-    @Bean
-    public ConsumerFactory<Long, AddressDto> consumerFactoryAddress() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
-
-    @Bean
-    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactoryAddress() {
-        ConcurrentKafkaListenerContainerFactory<Long, AddressDto> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactoryAddress());
-        return factory;
-    }
-
-    @Bean
-    public ConsumerFactory<Long, WalletDto> consumerFactoryWallet() {
-        return new DefaultKafkaConsumerFactory<>(consumerConfigs());
-    }
-
-    @Bean
-    public KafkaListenerContainerFactory<?> kafkaListenerContainerFactoryWallet() {
-        ConcurrentKafkaListenerContainerFactory<Long, WalletDto> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactoryWallet());
-        return factory;
+    @KafkaListener(topics = "${spring.kafka.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
+    public void consumeMessage(ConsumerRecord<String, AddressDto> record) {
+        LOGGER.info(String.format("Object %s received", record.value()));
     }
     @Bean
     public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
