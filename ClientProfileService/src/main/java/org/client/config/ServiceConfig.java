@@ -32,5 +32,4 @@ public class ServiceConfig {
     public AddressService addressService(IndividualService individualService) {
         return new AddressServiceImpl(individualRepository, mappingUtils);
     }
-
 }
