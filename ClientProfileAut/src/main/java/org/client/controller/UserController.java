@@ -1,37 +1,26 @@
 package org.client.controller;
 
-import org.client.security.JWTutil;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.client.model.User;
+import org.client.service.UserService;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
+import java.util.List;
 
 
 @RestController
 public class UserController {
 
-    private final JWTutil jwTutil;
+    private final UserService service;
 
-    public UserController(JWTutil jwTutil) {
-        this.jwTutil = jwTutil;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
-
-    @GetMapping("/admin")
-        public String adminEndpoint() {
-            return "Admin!";
-        }
-
-        @GetMapping("/user")
-        public String userEndpoint() {
-            return "User!";
-        }
-
-        @GetMapping("/show")
-        public String allRolesEndpoint(Principal principal) {
-            return principal.toString();
-        }
-
+    @GetMapping(path = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<User> getAll() {
+        return this.service.getAll();
     }
-
-
+}
