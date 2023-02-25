@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class IndividualDataController {
 
     private final IndividualService individualService;
+
     private final MaskingService maskingService;
 
     public IndividualDataController(IndividualService individualService, MaskingService maskingService) {
@@ -51,7 +52,7 @@ public class IndividualDataController {
     @ResponseBody
     public ResponseEntity maskData(@RequestBody IndividualDto dto) {
 
-        final var masked = MaskingService.maskName(dto.getName(), dto.getSurname(), dto.getPatronymic());
+        final var masked = maskingService.maskName(dto.getName(), dto.getSurname(), dto.getPatronymic());
 
         return ResponseEntity.ok().body(masked);
 

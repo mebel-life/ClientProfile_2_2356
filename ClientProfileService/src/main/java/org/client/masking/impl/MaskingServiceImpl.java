@@ -7,10 +7,8 @@ import java.util.Arrays;
 
 public class MaskingServiceImpl implements MaskingService {
 
-
-
     @Override
-    public String maskName(String name, String surname, String patronymic) {
+    public  String maskName(String name, String surname, String patronymic) {
 
         /*
         Если отчество не null (отчество есть), то маскируем отчество используя цикл
