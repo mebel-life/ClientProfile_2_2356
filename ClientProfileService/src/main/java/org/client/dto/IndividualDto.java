@@ -1,14 +1,22 @@
 package org.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JacksonException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.client.entity.Individual;
 import org.intellij.lang.annotations.Pattern;
 
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Schema(description = "Модель, описывающая пользоватяле в ЛК банка")
 @Builder
@@ -16,6 +24,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class IndividualDto {
 
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
@@ -51,6 +60,16 @@ public class IndividualDto {
     @Hidden
     @JsonProperty(Fields.WALLET)
     private Collection<WalletDto> wallet;
+    @Hidden
+    @JsonProperty(Fields.DOCUMENTS)
+    private Collection<DocumentsDto> documents;
+
+    @Hidden
+    @JsonProperty(Fields.RFPASSPORT)
+    private Collection<RFPassportDto> RFPastport;
+    @Hidden
+    @JsonProperty(Fields.CONTACT_MEDIUM)
+    private Collection <ContactMediumDto> contactMedium;
 
 
     public static class Fields {
@@ -61,5 +80,45 @@ public class IndividualDto {
         public static final String ADDRESS = "address";
 
         public static final String WALLET = "wallet";
+
+        public static final String DOCUMENTS = "documents";
+
+        public static final String RFPASSPORT = "RFPasspot";
+
+        public static final String CONTACT_MEDIUM = "contactMedium";
+
+
     }
+    // Serializing Dto To Json object.
+    public static String Serializer (IndividualDto individualDto) {
+        ObjectMapper objectMapper=new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        String json= null;
+        try {
+            json = objectMapper.writeValueAsString(individualDto);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return json;
+
+    }
+
+    //Deserializing from Json to IndividualDto.
+    public static IndividualDto Deserializer(String json) {
+
+        ObjectMapper objectMapper=new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,false);
+        IndividualDto individualDto = null;
+        try {
+            individualDto = objectMapper.readValue(json, IndividualDto.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return individualDto;
+
+    }
+    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
+
+
+
 }
