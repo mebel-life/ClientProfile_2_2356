@@ -9,9 +9,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @SpringBootApplication
 @EnableWebMvc
-public class App {
+public class AppRecognition {
     public static void main(String[] args) throws TesseractException {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(AppRecognition.class, args);
     }
     @Bean
     public RestTemplate getRestTemplate() {

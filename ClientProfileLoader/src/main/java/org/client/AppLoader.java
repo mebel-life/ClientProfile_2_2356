@@ -8,9 +8,9 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableJms
 @EnableKafka
 @SpringBootApplication
-public class App {
+public class AppLoader {
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(AppLoader.class, args);
     }
 }

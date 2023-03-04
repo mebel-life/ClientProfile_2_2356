@@ -4,7 +4,7 @@ package org.client;
  * Hello world!
  *
  */
-public class App 
+public class AppNotification
 {
     public static void main( String[] args )
     {
