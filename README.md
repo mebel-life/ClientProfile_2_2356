@@ -44,7 +44,7 @@ http://localhost:8080/swagger-ui.html
 Все контроллеры и их методы нужно сразу описывать аннотациями [Swagger](https://docs.swagger.io/swagger-core/v1.5.0/apidocs/allclasses-noframe.html).
 Swagger UI при запущенном приложении крутится [здесь](http://localhost:8080/swagger-ui.html).
 
-Таск-борд находится прямо на [Gitlab](hhttps://gitlab.com/).
+Таск-борд находится на [Kaiten](https://clientprofile.kaiten.ru/space/119024).
 
 Dev-stand будем поднимать и разворачивать через Docker, а настраивать CI/CD - через Gitlab.
 
@@ -102,7 +102,7 @@ Dev-stand будем поднимать и разворачивать через
 <li>загрузи проект себе в среду разработки</li>
 <li>изучи весь проект - начни с pom, properties файлов и конфигурационных классов</li>
 <li>добейся успешного запуска проекта. <a href="http://localhost:8080/"> Проверить</a>.</li>
-<li>изучи <a href="">таск-борд</a>
+<li>изучи <a href="https://clientprofile.kaiten.ru/space/119024">таск-борд</a>
 </ol>
 
 
@@ -186,4 +186,6 @@ Dev-stand будем поднимать и разворачивать через
 Договаривайтесь сами :)
 
 ## Дополнительные материалы
-### 
+Список полезных ссылок в левой колонке [Kaiten](https://clientprofile.kaiten.ru/space/119024)
+# Cхема проекта
+[Схема](https://clientprofile.kaiten.ru/space/119024/card/9264708)
