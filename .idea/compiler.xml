@@ -23,7 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ClientProfileAut" options="-parameters" />
       <module name="ClientProfileAvatar" options="-parameters" />
-      <module name="ClientProfileCommon" options="" />
+      <module name="ClientProfileCommon" options="-parameters" />
       <module name="ClientProfileFacade" options="-parameters" />
       <module name="ClientProfileLoader" options="-parameters" />
       <module name="ClientProfileNotification" options="-parameters" />

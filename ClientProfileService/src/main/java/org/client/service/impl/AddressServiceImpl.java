@@ -1,8 +1,9 @@
 package org.client.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
+
+import org.client.common.dto.AddressDto;
+import org.client.common.dto.IndividualDto;
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
 

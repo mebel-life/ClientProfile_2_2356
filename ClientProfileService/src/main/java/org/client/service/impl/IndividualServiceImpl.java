@@ -1,6 +1,7 @@
 package org.client.service.impl;
 
-import org.client.dto.IndividualDto;
+
+import org.client.common.dto.IndividualDto;
 import org.client.service.IndividualService;
 
 import java.util.HashMap;

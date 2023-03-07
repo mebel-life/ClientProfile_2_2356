@@ -1,4 +1,4 @@
-package org.client.dto;
+package org.client.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Hidden;

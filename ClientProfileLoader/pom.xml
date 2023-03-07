@@ -6,12 +6,9 @@
         <artifactId>ClientProfile_1</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <artifactId>ClientProfileLoader</artifactId>
     <packaging>jar</packaging>
-
     <name>ClientProfileLoader</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,6 +39,7 @@
             <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.client</groupId>
             <artifactId>ClientProfileService</artifactId>

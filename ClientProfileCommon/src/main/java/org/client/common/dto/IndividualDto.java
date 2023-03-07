@@ -1,4 +1,4 @@
-package org.client.dto;
+package org.client.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,13 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import org.client.entity.Individual;
 import org.intellij.lang.annotations.Pattern;
 
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Schema(description = "Модель, описывающая пользоватяле в ЛК банка")
@@ -66,7 +64,7 @@ public class IndividualDto {
 
     @Hidden
     @JsonProperty(Fields.RFPASSPORT)
-    private Collection<RFPassportDto> RFPastport;
+    private Collection<RFPassportDto> passport;
     @Hidden
     @JsonProperty(Fields.CONTACT_MEDIUM)
     private Collection <ContactMediumDto> contactMedium;
@@ -83,7 +81,7 @@ public class IndividualDto {
 
         public static final String DOCUMENTS = "documents";
 
-        public static final String RFPASSPORT = "RFPasspot";
+        public static final String RFPASSPORT = "passport";
 
         public static final String CONTACT_MEDIUM = "contactMedium";
 

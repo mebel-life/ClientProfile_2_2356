@@ -1,7 +1,7 @@
 package org.client.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
-import org.client.dto.AddressDto;
+import org.client.common.dto.AddressDto;
 import org.client.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
