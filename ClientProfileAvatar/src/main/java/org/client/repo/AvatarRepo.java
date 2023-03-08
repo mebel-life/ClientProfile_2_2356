@@ -1,6 +1,6 @@
 package org.client.repo;
 
-import org.client.entity.AvatarDto;
+import org.client.common.dto.AvatarDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

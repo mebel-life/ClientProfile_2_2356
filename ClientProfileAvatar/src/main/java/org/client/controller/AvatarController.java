@@ -1,7 +1,7 @@
 package org.client.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.client.entity.AvatarDto;
+import org.client.common.dto.AvatarDto;
 import org.client.service.AvatarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

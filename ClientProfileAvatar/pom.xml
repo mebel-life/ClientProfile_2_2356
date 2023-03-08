@@ -26,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>org.client</groupId>
-            <artifactId>ClientProfileService</artifactId>
+            <artifactId>ClientProfileCommon</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

@@ -1,6 +1,6 @@
 package org.client.service;
 
-import org.client.entity.AvatarDto;
+import org.client.common.dto.AvatarDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

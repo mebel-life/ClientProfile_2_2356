@@ -1,7 +1,7 @@
 package org.client.service;
 
 import lombok.AllArgsConstructor;
-import org.client.entity.AvatarDto;
+import org.client.common.dto.AvatarDto;
 import org.client.repo.AvatarRepo;
 import org.client.util.AvatarUtils;
 import org.springframework.stereotype.Component;
