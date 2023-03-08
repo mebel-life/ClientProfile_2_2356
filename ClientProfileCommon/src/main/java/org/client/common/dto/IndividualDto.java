@@ -67,7 +67,9 @@ public class IndividualDto {
     private Collection<RFPassportDto> passport;
     @Hidden
     @JsonProperty(Fields.CONTACT_MEDIUM)
-    private Collection <ContactMediumDto> contactMedium;
+    private Collection<ContactMediumDto> contactMedium;
+    @JsonProperty(Fields.AVATAR)
+    private Collection<AvatarDto> avatar;
 
 
     public static class Fields {
@@ -85,6 +87,7 @@ public class IndividualDto {
 
         public static final String CONTACT_MEDIUM = "contactMedium";
 
+        public static final String AVATAR = "avatar";
 
     }
     // Serializing Dto To Json object.

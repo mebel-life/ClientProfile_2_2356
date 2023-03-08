@@ -31,6 +31,8 @@ public class DocumentsDto {
     @JsonProperty(Fields.INDIVIDUAL)
     private Collection<IndividualDto> individual;
 
+    private Collection<DocumentType> documentTypes;
+
 
     public static class Fields {
         public static final String UUID = "uuid";

@@ -2,6 +2,10 @@ package org.client.service.impl;
 
 
 import org.client.common.dto.*;
+import org.client.dto.shortIndividual.IndividualClientDto;
+import org.client.dto.shortIndividual.IndividualDocStatusDto;
+import org.client.dto.shortIndividual.IndividualShortDto;
+import org.client.dto.shortIndividual.RFPassportShortDto;
 import org.client.service.MaskingService;
 import org.client.util.ClientContactsException;
 import org.client.util.ClientInfoException;
@@ -22,6 +26,7 @@ public class MaskingServiceImpl implements MaskingService {
      * @param text meant to be masked
      * @return masked text
      */
+
     @Override
     public String maskTextInfo(String text) {
         return text.replaceAll("[^.@+]", "*");
@@ -42,6 +47,41 @@ public class MaskingServiceImpl implements MaskingService {
             individual.setContactMedium(individual.getContactMedium());
             individual.getPassport().forEach(this::maskRFPassport);
             individual.setPassport(individual.getPassport());
+        } else {
+            throw new ClientInfoException();
+        }
+        return individual;
+    }
+
+    @Override
+    public IndividualShortDto maskIndividual(IndividualShortDto individual) {
+        if (individual != null) {
+            individual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
+            individual.setSurname(maskSurname(individual.getSurname()));
+        } else {
+            throw new ClientInfoException();
+        }
+        return individual;
+    }
+
+    @Override
+    public IndividualDocStatusDto maskIndividual(IndividualDocStatusDto individual) {
+        if (individual != null) {
+            individual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
+            individual.setSurname(maskSurname(individual.getSurname()));
+            individual.getPassport().forEach(this::maskRFPassport);
+            individual.setPassport(individual.getPassport());
+        } else {
+            throw new ClientInfoException();
+        }
+        return individual;
+    }
+
+    @Override
+    public IndividualClientDto maskIndividual(IndividualClientDto individual) {
+        if (individual != null) {
+            individual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
+            individual.setSurname(maskSurname(individual.getSurname()));
         } else {
             throw new ClientInfoException();
         }
@@ -143,6 +183,31 @@ public class MaskingServiceImpl implements MaskingService {
         return passport;
     }
 
+    @Override
+    public RFPassportShortDto maskRFPassport(RFPassportShortDto passport) {
+        if (passport != null) {
+            if (passport.getSeries() != null) {
+                StringBuilder sb = new StringBuilder(passport.getSeries());
+                sb.setCharAt(2,'*');
+                sb.setCharAt(3, '*');
+                passport.setSeries(sb.toString());
+            } else {
+                throw new DocumentException("No passport series found");
+            }
+            if (passport.getNumber() != null) {
+                StringBuilder sb = new StringBuilder(passport.getNumber());
+                sb.setCharAt(0, '*');
+                sb.setCharAt(1, '*');
+                sb.setCharAt(2, '*');
+                passport.setNumber(sb.toString());
+            } else {
+                throw new DocumentException("No passport number found");
+            }
+        } else {
+            throw new DocumentException("No passport found");
+        }
+        return passport;
+    }
 
 }
 

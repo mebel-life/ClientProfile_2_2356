@@ -52,6 +52,8 @@ public class RFPassportDto {
     private String message;
     private String legalForce;
     private String passportStatus;
+
+    private DocumentType documentType = DocumentType.RFPassport;
     @Hidden
     @JsonProperty(Fields.INDIVIDUAL)
     private Collection<IndividualDto> individual;

@@ -35,4 +35,6 @@ public class IndividualController {
     public void createIndividual(@RequestBody IndividualDto dto) {
         individualService.addClient(dto.getIcp(), dto.getName());
     }
+
+
 }
