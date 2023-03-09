@@ -1,22 +1,20 @@
 package org.client;
 
-import org.client.controller.AddressController;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 /**
  * ClientProfileService!
  *
  */
 @SpringBootApplication
 @EnableWebMvc
+@Slf4j
 public class MainApp
 {
     public static void main(String[] args) {
+        log.debug("starting ClientProfileService");
         SpringApplication.run(MainApp.class, args);
     }
 }
