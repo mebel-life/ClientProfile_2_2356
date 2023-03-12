@@ -11,9 +11,9 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
-import org.client.dto.WalletDto;
+import org.client.common.dto.AddressDto;
+import org.client.common.dto.IndividualDto;
+import org.client.common.dto.WalletDto;
 
 import java.util.HashMap;
 import java.util.Map;
