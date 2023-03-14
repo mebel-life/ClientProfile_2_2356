@@ -12,7 +12,7 @@ import java.util.Collections;
 @Service
 public class MappingUtils {
 
-    public IndividualDto mapToIndividualDto(Individual individualEntity) {
+    public org.client.common.dto.IndividualDto mapToIndividualDto(Individual individualEntity) {
         if (individualEntity == null) return null;
 
         IndividualDto individualDto = new IndividualDto();

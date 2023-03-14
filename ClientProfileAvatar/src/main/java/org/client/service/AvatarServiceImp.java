@@ -55,5 +55,10 @@ public class AvatarServiceImp implements AvatarService {
 
     }
 
+    @Override
+    public String getRandomImage() {
+        return String.valueOf((int)(Math.random()*5));
+    }
+
 
 }

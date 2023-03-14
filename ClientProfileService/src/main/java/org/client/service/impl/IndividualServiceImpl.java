@@ -1,6 +1,6 @@
 package org.client.service.impl;
 
-import org.client.dto.IndividualDto;
+import org.client.common.dto.IndividualDto;
 import org.client.entity.Individual;
 import org.client.repository.IndividualRepository;
 import org.client.service.IndividualService;

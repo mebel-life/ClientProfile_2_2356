@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+// зачем нам таблица тут, если все остальные БД в сервисе???
+
 @Schema(description = "Модель, описывающая аватар пользователя")
 @Data
 @Builder

@@ -3,7 +3,8 @@ package org.client.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.client.dto.IndividualDto;
+
+import org.client.common.dto.IndividualDto;
 import org.client.service.IndividualService;
 import org.client.util.exceptions.ClientWithSuchICPExists;
 import org.client.util.exceptions.EmptyParameterException;
