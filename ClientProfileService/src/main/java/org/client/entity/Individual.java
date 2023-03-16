@@ -1,17 +1,13 @@
 package org.client.entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -20,11 +16,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class Individual {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private String uuid;
 
     private String icp;
@@ -38,15 +33,22 @@ public class Individual {
     private Date birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "documents")
+    @JoinColumn(name = "documentID")
     private Documents documents;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rfPassport")
     private RFPassport rfPassport;
 
+    //Двусторонний OneToOne
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contacts")
+    @JoinColumn(name = "contactID")
     private ContactMedium contacts;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="individ_address",
+            joinColumns=  @JoinColumn(name="individ_icp", referencedColumnName="icp"),
+            inverseJoinColumns= @JoinColumn(name="address_id", referencedColumnName="uuid") )
+    private Collection<Address> addresses;
 
 }

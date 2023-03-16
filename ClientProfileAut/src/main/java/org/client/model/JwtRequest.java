@@ -1,7 +1,9 @@
 package org.client.model;
 
-import java.io.Serializable;
+import lombok.ToString;
 
+import java.io.Serializable;
+@ToString
 public class JwtRequest implements Serializable {
     private static final long serialVersionUID = 5926468583005150707L;
 

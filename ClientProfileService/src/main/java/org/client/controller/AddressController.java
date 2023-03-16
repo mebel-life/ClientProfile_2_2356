@@ -1,7 +1,7 @@
 package org.client.controller;
 
 import io.swagger.v3.oas.annotations.Parameter;
-import org.client.common.dto.AddressDto;
+import org.client.dto.AddressDto;
 import org.client.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class AddressController {
         return new ResponseEntity<>(addressService.getAddressClient(icp), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public void createAddress(@Parameter String icp, @RequestBody AddressDto dto) {
         addressService.addAddressForClient(icp, dto.getAddressName());
     }

@@ -19,9 +19,5 @@ public class PhoneNumber {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String uuid;
 
-    @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="phoneNumbers")
-    private ContactMedium contactMedium;
-
     private String value;
 }

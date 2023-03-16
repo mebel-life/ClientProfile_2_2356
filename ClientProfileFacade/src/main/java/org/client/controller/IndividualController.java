@@ -4,23 +4,27 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.client.common.dto.*;
+
+import org.client.common.util.AuthUtil;
 import org.client.dto.shortIndividual.IndividualClientDto;
 import org.client.dto.shortIndividual.IndividualDocStatusDto;
 import org.client.dto.shortIndividual.IndividualShortDto;
 import org.client.service.MaskingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 @RestController
+@CrossOrigin(allowedHeaders = {"username", "password"})
 @RequestMapping("api")
 @Tag(name = "Individual controller", description = "Методы для работы фронта с пользователем")
 public class IndividualController {
@@ -31,12 +35,14 @@ public class IndividualController {
     }
 
     private HttpHeaders headers = new HttpHeaders();
+
     {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
     }
 
+    //Util for restrict access to methods
+    private AuthUtil authUtil = new AuthUtil();
     private HttpEntity<Void> http = new HttpEntity<>(headers);
-
     private RestTemplate restTemplate;
     private MaskingService maskingService;
     private Logger logger = Logger.getLogger("IndividualControllerFacade");
@@ -50,7 +56,12 @@ public class IndividualController {
 
     @GetMapping("/individual")
     @Operation(summary = "Полная маскированная информация о клиенте по ICP")
-    public ResponseEntity<IndividualDto> getClientById(@Parameter(description = "ICP уникальный ключ клиента") String icp) {
+    public ResponseEntity<IndividualDto> getClientById(@Parameter(description = "ICP уникальный ключ клиента") String icp, HttpServletRequest request) {
+        try {
+            authUtil.checkAuth(request);
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(401).build();
+        }
         IndividualDto individualDto = new IndividualDto();
         try {
             ResponseEntity<IndividualDto> responseEntity =
@@ -65,7 +76,12 @@ public class IndividualController {
 
     @GetMapping("/individualShort")
     @Operation(summary = "Частичная информация о клиенте по ICP(ФИО, icp, uuid")
-    public ResponseEntity<IndividualShortDto> getClientShortById(@Parameter(description = "ICP уникальный ключ клиента") String icp) {
+    public ResponseEntity<IndividualShortDto> getClientShortById(@Parameter(description = "ICP уникальный ключ клиента") String icp, HttpServletRequest request) {
+        try {
+            authUtil.checkAuth(request);
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(401).build();
+        }
         IndividualShortDto individualShortDto = new IndividualShortDto();
         try {
             ResponseEntity<IndividualShortDto> responseEntity =
@@ -80,7 +96,13 @@ public class IndividualController {
 
     @GetMapping("/individualDocStatus")
     @Operation(summary = "Частичная информация о клиенте с документами по ICP(ФИО, icp, uuid, RFPassport")
-    public ResponseEntity<IndividualDocStatusDto> getClientDocStatusById(@Parameter(description = "ICP уникальный ключ клиента") String icp) {
+    public ResponseEntity<IndividualDocStatusDto> getClientDocStatusById(@Parameter(description = "ICP уникальный ключ клиента") String icp, HttpServletRequest request) {
+        try {
+            authUtil.checkAuth(request);
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(401).build();
+        }
+
         IndividualDocStatusDto individualDocStatusDto = new IndividualDocStatusDto();
         try {
             ResponseEntity<IndividualDocStatusDto> responseEntity =
@@ -95,7 +117,12 @@ public class IndividualController {
 
     @GetMapping("/individualClient")
     @Operation(summary = "Частичная информация о клиенте по ICP(ФИО, icp, uuid, Avatar, Adress, Documents")
-    public ResponseEntity<IndividualClientDto> getClientInfoById(@Parameter(description = "ICP уникальный ключ клиента") String icp) {
+    public ResponseEntity<IndividualClientDto> getClientInfoById(@Parameter(description = "ICP уникальный ключ клиента") String icp, HttpServletRequest request) {
+        try {
+            authUtil.checkAuth(request);
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(401).build();
+        }
         IndividualClientDto individualClientDto = new IndividualClientDto();
         try {
             ResponseEntity<IndividualClientDto> responseEntity =
@@ -107,5 +134,4 @@ public class IndividualController {
         logger.log(Level.INFO, "Client info sent");
         return new ResponseEntity<>(maskingService.maskIndividual(individualClientDto), HttpStatus.OK);
     }
-
 }

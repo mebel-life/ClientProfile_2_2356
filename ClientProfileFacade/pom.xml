@@ -25,6 +25,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <dependency>
             <groupId>org.client</groupId>
             <artifactId>ClientProfileCommon</artifactId>
