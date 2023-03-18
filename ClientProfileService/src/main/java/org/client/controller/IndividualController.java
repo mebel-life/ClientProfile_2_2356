@@ -22,6 +22,7 @@ import java.util.List;
 @Tag(name = "Individual controller", description = "Методы для работы с пользователем")
 public class IndividualController {
     private AuthUtil authUtil = new AuthUtil();
+
     HttpServletRequest request;
 
     private final IndividualService individualService;
