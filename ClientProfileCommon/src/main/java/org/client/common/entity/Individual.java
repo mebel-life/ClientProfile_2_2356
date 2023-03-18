@@ -1,4 +1,4 @@
-package org.client.entity;
+package org.client.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.Collection;
 import java.util.Date;
 
@@ -21,6 +20,7 @@ public class Individual {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private String uuid;
+
 
     private String icp;
     private String name;
@@ -47,8 +47,8 @@ public class Individual {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="individ_address",
-            joinColumns=  @JoinColumn(name="individ_icp", referencedColumnName="icp"),
-            inverseJoinColumns= @JoinColumn(name="address_id", referencedColumnName="uuid") )
+            joinColumns=  @JoinColumn(name="individ_uuid", referencedColumnName="uuid"),
+            inverseJoinColumns= @JoinColumn(name="address_uuid", referencedColumnName="adr_uuid") )
     private Collection<Address> addresses;
 
 }

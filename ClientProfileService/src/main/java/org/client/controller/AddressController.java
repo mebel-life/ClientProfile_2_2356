@@ -1,11 +1,15 @@
 package org.client.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.client.dto.AddressDto;
+import org.client.common.dto.AddressDto;
+import org.client.common.dto.IndividualDto;
 import org.client.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/address")
@@ -17,13 +21,24 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getById(@RequestParam String icp) {
-        return new ResponseEntity<>(addressService.getAddressClient(icp), HttpStatus.OK);
+    @PostMapping("/create")
+    @Operation(summary = "Создание нового адреса и его привязка к пользователю по icp пользователя")
+    public void createAddress(@RequestBody AddressDto dto) {
+        addressService.addAddressForClient(dto.getIndividualIcp(), dto.getAddressName(), dto.getNotFormAddrName(), dto.getCountry(),
+                dto.getZipCode());
     }
 
-    @PostMapping("/create")
-    public void createAddress(@Parameter String icp, @RequestBody AddressDto dto) {
-        addressService.addAddressForClient(icp, dto.getAddressName());
+    @GetMapping("/getUserByAddr/{zipCode}") //ИЩЕМ пользователей по zipCode address
+    @Operation(summary = "Информация о клиенте по  zipCode address")
+    public ResponseEntity<List<IndividualDto>> getByAddress(@Parameter(description = "zipCode адреса") String ZipCode,
+                                                      @PathVariable(value="zipCode") String zipCode) {
+        return new ResponseEntity<>(addressService.getClientByAddress(zipCode), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAddrByIndivIcp/{icp}") //ИЩЕМ адрес(а) по icp user
+    @Operation(summary = "Информация о адресе по icp individual")
+    public ResponseEntity<List<AddressDto>> getAddresByIndIcp(@Parameter(description = "icp") String Icp,
+                                                              @PathVariable(value="icp") String icp) {
+        return new ResponseEntity<>(addressService.getAddressByClienticp(icp), HttpStatus.OK);
     }
 }

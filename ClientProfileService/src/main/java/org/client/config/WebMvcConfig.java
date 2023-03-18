@@ -1,9 +1,7 @@
 package org.client.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.client.controller.AddressController;
 import org.client.controller.IndividualController;
-import org.client.dto.IndividualDto;
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
@@ -24,7 +22,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Configuration
-@Slf4j
 public class WebMvcConfig {
 
 
@@ -57,12 +54,10 @@ public class WebMvcConfig {
         EndpointMapping endpointMapping = new EndpointMapping(basePath);
         boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(
                 webEndpointProperties, environment, basePath);
-        log.debug("WebMvcEndpointHandlerMapping found");
         return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints,
                 endpointMediaTypes, corsProperties.toCorsConfiguration(),
                 new EndpointLinksResolver(allEndpoints, basePath),
                 shouldRegisterLinksMapping, null);
-
     }
     private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties,
                                                Environment environment, String basePath) {

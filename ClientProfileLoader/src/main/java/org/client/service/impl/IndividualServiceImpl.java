@@ -1,7 +1,7 @@
 package org.client.service.impl;
 
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 import org.client.repositories.IndividualRepository;
 import org.client.service.IndividualService;
 import org.springframework.beans.factory.annotation.Autowired;

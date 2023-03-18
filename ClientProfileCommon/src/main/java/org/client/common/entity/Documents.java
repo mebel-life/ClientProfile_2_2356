@@ -1,10 +1,9 @@
-package org.client.entity.Contacts;
+package org.client.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.client.entity.ContactMedium;
 
 import javax.persistence.*;
 
@@ -14,10 +13,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PhoneNumber {
+public class Documents {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String uuid;
 
     private String value;
+
+    @OneToOne(mappedBy = "documents", cascade = CascadeType.ALL)
+    private Individual individual;
+
 }

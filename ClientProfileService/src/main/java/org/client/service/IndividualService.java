@@ -1,9 +1,6 @@
 package org.client.service;
 
-import org.client.dto.IndividualDto;
-import org.client.entity.ContactMedium;
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.dto.IndividualDto;
 
 import java.util.Date;
 import java.util.List;
@@ -19,7 +16,7 @@ public interface IndividualService {
 
     IndividualDto getClientByPhoneNum(String value);
 
-    List<Individual> getAll();
+    List<IndividualDto> getAll();
 
     void editClient(String icp, Date birthdate, String countryOfbirth, String fullName, String gender,
                    String name, String patronymic, String placeOfBirth, String surname);

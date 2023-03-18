@@ -21,14 +21,14 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ClientProfileAut" options="-parameters" />
+      <module name="ClientProfileAut" options="-parameters --add-modules java.base,java.logging" />
       <module name="ClientProfileAvatar" options="-parameters" />
-      <module name="ClientProfileCommon" options="-parameters" />
-      <module name="ClientProfileFacade" options="-parameters" />
-      <module name="ClientProfileLoader" options="-parameters" />
+      <module name="ClientProfileCommon" options="-parameters --add-modules java.base,java.logging" />
+      <module name="ClientProfileFacade" options="-parameters --add-modules java.base" />
+      <module name="ClientProfileLoader" options="-parameters --add-modules java.base" />
       <module name="ClientProfileNotification" options="-parameters" />
       <module name="ClientProfileRecognition" options="-parameters" />
-      <module name="ClientProfileService" options="-parameters" />
+      <module name="ClientProfileService" options="-parameters --add-modules java.base" />
       <module name="ClientProfileUpdate" options="-parameters" />
       <module name="ClientProfile_1" options="" />
     </option>

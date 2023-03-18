@@ -1,18 +1,17 @@
 package org.client.repo;
 
-import org.client.entity.ContactMedium;
-import org.client.entity.Documents;
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.ContactMedium;
+import org.client.common.entity.Documents;
+import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

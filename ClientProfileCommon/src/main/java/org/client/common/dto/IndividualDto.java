@@ -14,6 +14,7 @@ import org.intellij.lang.annotations.Pattern;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Schema(description = "Модель, описывающая пользоватяле в ЛК банка")
@@ -50,6 +51,12 @@ public class IndividualDto {
     private String countryOfBirth;
 
     private Date birthDate;
+
+    private String documentsUuid;
+
+    private UUID rfPassportUuid;
+
+    private String contactsUuid;
 
     @Hidden
     @JsonProperty(Fields.ADDRESS)

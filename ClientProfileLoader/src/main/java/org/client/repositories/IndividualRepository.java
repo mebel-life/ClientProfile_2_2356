@@ -1,7 +1,7 @@
 package org.client.repositories;
 
 
-import org.client.entity.Individual;
+import org.client.common.entity.Individual;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
