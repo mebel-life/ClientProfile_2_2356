@@ -1,5 +1,7 @@
 package org.client.service.impl;
 
+
+
 import org.client.common.dto.IndividualDto;
 import org.client.entity.Individual;
 import org.client.repository.IndividualRepository;
@@ -36,5 +38,10 @@ public class IndividualServiceImpl implements IndividualService {
     @Override
     public IndividualDto getClient(String icp) {
         return mappingUtils.mapToIndividualDto(individualRepository.findByIcp(icp));
+    }
+
+    @Override
+    public IndividualDto getClientUuid(String uuid) {
+        return mappingUtils.mapToIndividualDto(individualRepository.findByUuid(uuid));
     }
 }

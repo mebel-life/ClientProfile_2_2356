@@ -1,8 +1,10 @@
 package org.client.util;
 
-import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
-import org.client.dto.WalletDto;
+import org.client.common.dto.AddressDto;
+import org.client.common.dto.IndividualDto;
+
+
+import org.client.common.dto.WalletDto;
 import org.client.entity.Address;
 import org.client.entity.Individual;
 import org.client.entity.Wallet;
@@ -12,7 +14,7 @@ import java.util.Collections;
 @Service
 public class MappingUtils {
 
-    public org.client.common.dto.IndividualDto mapToIndividualDto(Individual individualEntity) {
+    public IndividualDto mapToIndividualDto(Individual individualEntity) {
         if (individualEntity == null) return null;
 
         IndividualDto individualDto = new IndividualDto();

@@ -1,21 +1,15 @@
 package org.client.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.client.controller.AddressController;
-import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
+import org.client.common.dto.AddressDto;
 import org.client.entity.Address;
 import org.client.entity.Individual;
 import org.client.repository.IndividualRepository;
 import org.client.service.AddressService;
-import org.client.service.IndividualService;
 import org.client.util.MappingUtils;
 import org.client.util.exceptions.NotFoundClientException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.UUID;
 
 @AllArgsConstructor

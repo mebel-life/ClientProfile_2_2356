@@ -1,6 +1,6 @@
 package org.client.controller;
 
-import io.swagger.v3.oas.annotations.Parameter;
+import org.client.common.dto.AvatarDto;
 import org.client.service.AvatarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +21,18 @@ public class AvatarController {
         return new ResponseEntity<>(avatarService.getAvatarClient(icp), HttpStatus.OK);
     }
 
-    @PostMapping
-    public void createAvatar(@Parameter String icp) {
+    @PutMapping
+    public ResponseEntity<?> createAvatar(@RequestParam String icp) {
+
         avatarService.addAvatarForClient(icp);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
+    //получаю от АВАТАРА
+    @PutMapping("/api")
+    public ResponseEntity<?> setAvatar(@RequestBody AvatarDto avatarDto) {
+        avatarService.setAvatarForClient(avatarDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
