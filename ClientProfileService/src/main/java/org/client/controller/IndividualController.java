@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/individual")
 @Tag(name = "Individual controller", description = "Методы для работы с пользователем")
 public class IndividualController {
+
     private AuthUtil authUtil = new AuthUtil();
 
     HttpServletRequest request;
@@ -55,6 +56,7 @@ public class IndividualController {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "создaние нового клиента")
     public ResponseEntity<Void> createIndividual(@RequestBody IndividualDto dto) {
 //        try {
 //            authUtil.checkAuth(request);
@@ -81,6 +83,7 @@ public class IndividualController {
     }
 
     @PutMapping("/edit")
+    @Operation(summary = "редактирование информации о клиенте")
     public ResponseEntity<Void> editIndividual(@RequestBody IndividualDto dto) {
 //        try {
 //            authUtil.checkAuth(request);
@@ -94,6 +97,7 @@ public class IndividualController {
     }
 
     @PostMapping("/delete")  //post запрос с icp клиента в  теле
+    @Operation(summary = "удаление клиента по icp клиента")
     public ResponseEntity<Void> deleteIndividual(@RequestBody IndividualDto dto) {
 //        try {
 //            authUtil.checkAuth(request);

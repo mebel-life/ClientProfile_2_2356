@@ -36,26 +36,39 @@ public class IndividualDto {
     @JsonProperty(Fields.ICP)
     private String icp;
 
+    @Schema(example = "Иван", description = "Имя клиента")
     private String name;
 
+    @Schema(example = "Петров", description = "Фамилия клиента")
     private String surname;
 
+    @Schema(example = "Федорович", description = "Отчество клиента")
     private String patronymic;
 
+    @Schema(example = "Иван Федорович Петров", description = "ФИО клиента")
     private String fullName;
 
+    @Schema(example = "М", description = "Пол клиента (мужской)")
     private String gender;
 
+    @Schema(example = "Северодвинск", description = "Город, в котором родился клиент")
     private String placeOfBirth;
 
+    @Schema(example = "Белорусь", description = "Страна, в которой родился клиент")
     private String countryOfBirth;
 
+    @Schema(example = "1990-12-03", description = "Дата рождения клиента")
     private Date birthDate;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор документа по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
     private String documentsUuid;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор паспорта по стандарту RFC4122")
     private UUID rfPassportUuid;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор контактов пользователя по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
     private String contactsUuid;
 
     @Hidden
@@ -65,16 +78,7 @@ public class IndividualDto {
     @Hidden
     @JsonProperty(Fields.WALLET)
     private Collection<WalletDto> wallet;
-    @Hidden
-    @JsonProperty(Fields.DOCUMENTS)
-    private Collection<DocumentsDto> documents;
 
-    @Hidden
-    @JsonProperty(Fields.RFPASSPORT)
-    private Collection<RFPassportDto> passport;
-    @Hidden
-    @JsonProperty(Fields.CONTACT_MEDIUM)
-    private Collection<ContactMediumDto> contactMedium;
     @JsonProperty(Fields.AVATAR)
     private Collection<AvatarDto> avatar;
 
@@ -87,12 +91,6 @@ public class IndividualDto {
         public static final String ADDRESS = "address";
 
         public static final String WALLET = "wallet";
-
-        public static final String DOCUMENTS = "documents";
-
-        public static final String RFPASSPORT = "passport";
-
-        public static final String CONTACT_MEDIUM = "contactMedium";
 
         public static final String AVATAR = "avatar";
 
