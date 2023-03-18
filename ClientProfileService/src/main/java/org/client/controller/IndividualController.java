@@ -93,14 +93,14 @@ public class IndividualController {
         return ResponseEntity.status(200).build();
     }
 
-    @PostMapping("/delete/{icp}")  //post запрос с пустым телом
-    public ResponseEntity<Void> deleteIndividual(@PathVariable(value="icp") String icp) {
+    @PostMapping("/delete")  //post запрос с icp клиента в  теле
+    public ResponseEntity<Void> deleteIndividual(@RequestBody IndividualDto dto) {
 //        try {
 //            authUtil.checkAuth(request);
 //        } catch (HttpClientErrorException e) {
 //            return ResponseEntity.status(401).build();
 //        }
-        individualService.deleteIndivid(icp);
+        individualService.deleteIndivid(dto.getIcp());
         return ResponseEntity.status(200).build();
     }
 
