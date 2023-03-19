@@ -14,11 +14,12 @@ import java.util.Optional;
 @Repository
 public interface AddressRepo extends JpaRepository<Address, String>{
 
-    Optional<Address> findAddressByAddressName(String addressName);
+    Optional<Address> findByUuid(String uuid);
+    Optional<Address> findByZipCode(String zipcode);
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query( // вставляем новый адресUUID в табл address
+    @Query( // вставляем новый адресUUID, addressName, country, notFormAddrName в табл address
             value = "insert into public.address values " +
                     "(:uuid, :addressName, :country, :notFormAddrName, :zipCode)",
             nativeQuery = true)//

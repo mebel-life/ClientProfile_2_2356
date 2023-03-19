@@ -13,4 +13,7 @@ public interface AddressService {
 
     List<AddressDto> getAddressByClienticp(String icp);
 
+    void editAddress(String uuid ,String notFormAddrName, String addressName, String country, String zipCode);
+
+    void deleteAddress (String zipcode);
 }

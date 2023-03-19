@@ -27,5 +27,8 @@ public class Wallet {
 
     private String usdWallet;
 
+    //двусторонняя связь
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Individual individual;
 
 }

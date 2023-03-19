@@ -50,8 +50,8 @@ public class Individual {
             inverseJoinColumns= @JoinColumn(name="address_uuid", referencedColumnName="adr_uuid") )
     private Collection<Address> addresses;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)  //у одного клиента может быть много кошельков.
-    @JoinColumn(name = "individ_uuid")                           // Но один кошелек может ссылаться только на одного клиента
+    //двусторонний  @OneToMany
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL, orphanRemoval = true)  //у одного клиента может быть много кошельков. Но один кошелек может ссылаться только на одного клиента
     private Collection<Wallet> wallets;
 
 }

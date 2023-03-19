@@ -41,4 +41,20 @@ public class AddressController {
                                                               @PathVariable(value="icp") String icp) {
         return new ResponseEntity<>(addressService.getAddressByClienticp(icp), HttpStatus.OK);
     }
+
+    @PutMapping("/edit")
+    @Operation(summary = "редактирование адреса по uuid адреса")
+    public ResponseEntity<Void> editAddress(@RequestBody AddressDto dto) {
+
+        addressService.editAddress(dto.getUuid() ,dto.getNotFormAddrName(), dto.getAddressName(), dto.getCountry(), dto.getZipCode());
+        return ResponseEntity.status(200).build();
+    }
+
+    @PostMapping("/delete")  //post запрос с zipcode адреса в  теле
+    @Operation(summary = "удаление адреса по zipcode")
+    public ResponseEntity<Void> deleteAddressByZip(@RequestBody AddressDto dto) {
+
+        addressService.deleteAddress(dto.getZipCode());
+        return ResponseEntity.status(200).build();
+    }
 }

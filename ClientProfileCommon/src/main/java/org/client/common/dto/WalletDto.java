@@ -19,6 +19,11 @@ public class WalletDto {
     @JsonProperty(Fields.UUID)
     private String uuid;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор контактов пользователя по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
+    @JsonProperty(Fields.INDIVIDUAL_UUID)
+    private String individualUuid;
+
     @Schema(example = "13356", description = "Идентификатор Клиентского профиля")
     @JsonProperty(Fields.INDIVIDUAL_ICP)
     private String individualIcp;
@@ -37,6 +42,8 @@ public class WalletDto {
 
     public static class Fields {
         public static final String UUID = "uuid";
+
+        public static final String INDIVIDUAL_UUID = "individualUuid";
 
         public static final String RUB_WALLET = "rubWallet";
 

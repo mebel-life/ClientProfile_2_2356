@@ -71,7 +71,7 @@ public class IndividualServiceImpl implements IndividualService {
     }
 
     @Transactional
-    @Override  // редактировать клиента. Cредствами только spring data jpa у меня это сделать не получилось
+    @Override  // редактировать клиента.
     public void editClient(String icp, Date birthDate2, String countryOfBirth2, String fullName2, String gender2,
                           String name2, String patronymic2, String placeOfBirth2, String surname2) {
         Individual userFromDB = individualRepo.findAllFieldsByIcp(icp); //нашли пользователя в базе по icp

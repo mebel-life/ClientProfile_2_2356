@@ -3,15 +3,16 @@ package org.client.service.impl;
 import lombok.AllArgsConstructor;
 import org.client.common.dto.AddressDto;
 import org.client.common.dto.IndividualDto;
-import org.client.common.entity.Address;
-import org.client.common.entity.Individual;
+import org.client.common.entity.*;
 import org.client.repo.AddressRepo;
 import org.client.repo.IndividualRepo;
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,6 +78,20 @@ public class AddressServiceImpl implements AddressService {
             AddressDtoList.add(addressDto);
         }
         return AddressDtoList;
+    }
+
+    @Transactional
+    @Override  // редактировать address.
+    public void editAddress(String uuid, String notFormAddrName, String addressName, String country, String zipCode) {
+        Address editaddress = Address.builder().uuid(uuid).notFormAddrName(notFormAddrName).addressName(addressName).
+                country(country).zipCode(zipCode).build();
+        addressRepo.save(editaddress);
+    }
+
+    @Override //удалить адрес по зипкод
+    public void deleteAddress(String zipcode) {
+        Address address = addressRepo.findByZipCode(zipcode).orElse(new Address());
+        addressRepo.deleteById(address.getUuid());
     }
 
 }
