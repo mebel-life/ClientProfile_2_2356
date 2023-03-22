@@ -1,39 +1,41 @@
 package org.client.service.impl;
 
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
-import org.client.dto.IndividualDto;
+import org.client.common.dto.IndividualDto;
 import org.client.entity.ContactMedium;
 import org.client.entity.Documents;
 import org.client.entity.Individual;
 import org.client.entity.RFPassport;
 import org.client.repo.IndividualRepo;
-import org.client.repo.IndividualRepo;
 import org.client.service.IndividualService;
+import org.client.util.IndividualUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.*;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
 public class IndividualServiceImpl implements IndividualService {
 
-    @Autowired
-    IndividualRepo individualRepo;
+    private IndividualRepo individualRepo;
+
+    private IndividualUtils individualUtils;
+
+
 
     public IndividualServiceImpl() {}
 
     @Transactional
     @Override // добавить клиента
-    public void addClient(String icp, String contactsUuid, String documentsUuid, UUID rfPassportUuid,
-                          Date birthDate, String countryOfBirth, String fullName, String gender,
-                          String name, String patronymic, String placeOfBirth, String surname) {
-
-        individualRepo.createUser(UUID.randomUUID().toString(), birthDate, countryOfBirth, fullName, gender, icp, name, patronymic,
-                placeOfBirth, surname, contactsUuid, documentsUuid, rfPassportUuid);
+    public void addClient(IndividualDto individualDto) {
+        Individual individual = IndividualUtils.convertToEntity(individualDto);
+        individualRepo.save(individual);
     }
 
     @Override //получить информацию о клиенте по icp
@@ -113,6 +115,16 @@ public class IndividualServiceImpl implements IndividualService {
     public void deleteIndivid(String icp) {
         Individual ind = individualRepo.findIndividualByIcp(icp).orElse(new Individual());
         individualRepo.deleteById(ind.getUuid());
+    }
+
+    public boolean isClientArchived(IndividualDto individual) {
+        Individual entity = individualUtils.convertToEntity(individual);
+        RFPassport activePassport = entity.getPassport().stream().
+                filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
+        if (individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber()) != null) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,7 +1,6 @@
 package org.client;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.client.dto.IndividualDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.kafka.annotation.EnableKafka;

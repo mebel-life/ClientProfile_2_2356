@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.client.common.util.AuthUtil;
-import org.client.dto.IndividualDto;
+import org.client.common.dto.IndividualDto;
 import org.client.entity.Individual;
 
 import org.client.service.IndividualService;
@@ -57,10 +57,8 @@ public class IndividualController {
 
     @PostMapping("/create")
     public void createIndividual(@RequestBody IndividualDto dto) {
-        individualService.addClient(dto.getIcp(),  dto.getContactsUuid(),
-                dto.getDocumentsUuid(), dto.getRfPassportUuid(), dto.getBirthDate(), dto.getCountryOfBirth(),
-                dto.getFullName(), dto.getGender(), dto.getName(), dto.getPatronymic(),
-                dto.getPlaceOfBirth(), dto.getSurname());
+        individualService.isClientArchived(dto);
+        individualService.addClient(dto);
     }
 
     @GetMapping("/get2/{icp}")
@@ -98,7 +96,6 @@ public class IndividualController {
         individualService.deleteIndivid(icp);
         return ResponseEntity.ok().build();
     }
-
 
 
 

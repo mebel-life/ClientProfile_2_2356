@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.client.entity.Contacts.Email;
 import org.client.entity.Contacts.PhoneNumber;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -20,11 +21,12 @@ import java.util.Collection;
 public class ContactMedium {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String uuid;  // на один ай ди может ссылаться  и phone_number, и email
 
     //Двусторонний OneToOne
-    @OneToOne(mappedBy = "contacts", cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Individual individual;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //на один uuid .ContactMedium может ссылаться много имейлов

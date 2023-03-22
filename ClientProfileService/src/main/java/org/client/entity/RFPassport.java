@@ -1,29 +1,25 @@
 package org.client.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 /**
  * RF passport entity
  */
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "rfPassports")
 public class RFPassport {
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор клиента по стандарту RFC4122")
     private UUID uuid;
     @Schema(example = "11 04", description = "Серия паспорта, первые 4 цифры")
@@ -55,6 +51,6 @@ public class RFPassport {
     private String legalForce;
     private String passportStatus;
 
-    @OneToOne(mappedBy = "rfPassport")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Individual individual;
 }

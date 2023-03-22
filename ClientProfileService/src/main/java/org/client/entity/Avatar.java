@@ -1,38 +1,30 @@
-package org.client.common.dto;
+package org.client.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.client.common.dto.AvatarDto;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Schema(description = "Модель, описывающая аватар пользователя")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="avatarData")
-public class AvatarDto {
-
+public class Avatar {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @JsonProperty(Fields.UUID)
     @Column(name = "uuid", unique = true, length = 50)
     private String uuid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Individual individual;
     private String name;
 
     private String md5;
@@ -41,11 +33,4 @@ public class AvatarDto {
     @Column
     private byte [] byteSize;
 
-    public static class Fields {
-
-        public static final String UUID = "uuid";
-
-    }
-
 }
-

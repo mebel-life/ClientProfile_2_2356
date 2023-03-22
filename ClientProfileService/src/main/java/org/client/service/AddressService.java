@@ -1,7 +1,6 @@
 package org.client.service;
 
-import org.client.dto.AddressDto;
-import org.client.dto.IndividualDto;
+import org.client.common.dto.AddressDto;
 
 public interface AddressService {
 

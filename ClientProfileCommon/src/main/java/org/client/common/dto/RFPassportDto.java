@@ -10,10 +10,9 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Schema(description = "модель, описывающая паспорт РФ пользователя")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class RFPassportDto {
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";

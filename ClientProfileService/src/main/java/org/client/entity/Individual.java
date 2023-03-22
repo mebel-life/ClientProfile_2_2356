@@ -1,14 +1,21 @@
 package org.client.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.client.common.dto.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.intellij.lang.annotations.Pattern;
 
 import javax.persistence.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -18,32 +25,52 @@ import java.util.Date;
 @Builder
 public class Individual {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String uuid;
 
     private String icp;
+
     private String name;
+
     private String surname;
+
     private String patronymic;
+
     private String fullName;
+
     private String gender;
+
     private String placeOfBirth;
+
     private String countryOfBirth;
+
     private Date birthDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "documentID")
-    private Documents documents;
+    private boolean isArchived = false;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rfPassport")
-    private RFPassport rfPassport;
+    private String archivedIcp = "";
+
+    private String documentsUuid;
+
+    private UUID rfPassportUuid;
+
+    private String contactsUuid;
+
+    @OneToMany(mappedBy = "individual")
+    private Collection<Avatar> avatar;
+
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
+    private Collection<Documents> documents;
+
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
+    private Collection<RFPassport> passport;
 
     //Двусторонний OneToOne
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contactID")
-    private ContactMedium contacts;
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
+    private Collection<ContactMedium> contacts;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="individ_address",

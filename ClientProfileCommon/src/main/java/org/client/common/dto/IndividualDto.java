@@ -14,14 +14,14 @@ import org.intellij.lang.annotations.Pattern;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Schema(description = "Модель, описывающая пользоватяле в ЛК банка")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @ToString
 public class IndividualDto {
 
@@ -34,23 +34,32 @@ public class IndividualDto {
     @Schema(example = "312", description = "Идентификатор Клиентского профиля")
     @JsonProperty(Fields.ICP)
     private String icp;
-
+    @JsonProperty(Fields.NAME)
     private String name;
-
+    @JsonProperty(Fields.SURNAME)
     private String surname;
-
+    @JsonProperty(Fields.PATRONYMIC)
     private String patronymic;
-
+    @JsonProperty(Fields.FULL_NAME)
     private String fullName;
-
+    @JsonProperty(Fields.GENDER)
     private String gender;
-
+    @JsonProperty(Fields.PLACE_OF_BIRTH)
     private String placeOfBirth;
-
+    @JsonProperty(Fields.COUNTRY_OF_BIRTH)
     private String countryOfBirth;
-
+    @JsonProperty(Fields.BIRTH_DATE)
     private Date birthDate;
+    @JsonProperty(Fields.IS_ARCHIVED)
+    private boolean isArchived = false;
+    @JsonProperty(Fields.ARCHIVED_ICP)
+    private String archivedIcp = "";
 
+    private String documentsUuid;
+
+    private UUID rfPassportUuid;
+
+    private String contactsUuid;
     @Hidden
     @JsonProperty(Fields.ADDRESS)
     private Collection<AddressDto> address;
@@ -77,6 +86,26 @@ public class IndividualDto {
 
         public static final String ICP = "icp";
 
+        public static final String NAME = "name";
+
+        public static final String SURNAME = "surname";
+
+        public static final String PATRONYMIC = "patronymic";
+
+        public static final String FULL_NAME = "fullName";
+
+        public static final String GENDER = "gender";
+
+        public static final String PLACE_OF_BIRTH = "placeOfBirth";
+
+        public static final String COUNTRY_OF_BIRTH = "countryOfBirth";
+
+        public static final String IS_ARCHIVED = "isArchived";
+
+        public static final String ARCHIVED_ICP = "archivedIcp";
+
+        public static final String BIRTH_DATE = "birthDate";
+
         public static final String ADDRESS = "address";
 
         public static final String WALLET = "wallet";
@@ -90,11 +119,12 @@ public class IndividualDto {
         public static final String AVATAR = "avatar";
 
     }
+
     // Serializing Dto To Json object.
-    public static String Serializer (IndividualDto individualDto) {
-        ObjectMapper objectMapper=new ObjectMapper();
+    public static String Serializer(IndividualDto individualDto) {
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json= null;
+        String json = null;
         try {
             json = objectMapper.writeValueAsString(individualDto);
         } catch (JsonProcessingException e) {
@@ -107,8 +137,8 @@ public class IndividualDto {
     //Deserializing from Json to IndividualDto.
     public static IndividualDto Deserializer(String json) {
 
-        ObjectMapper objectMapper=new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,false);
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         IndividualDto individualDto = null;
         try {
             individualDto = objectMapper.readValue(json, IndividualDto.class);
@@ -118,8 +148,8 @@ public class IndividualDto {
         return individualDto;
 
     }
-    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
+    private static Logger logger = Logger.getLogger(IndividualDto.class.getName());
 
 
 }

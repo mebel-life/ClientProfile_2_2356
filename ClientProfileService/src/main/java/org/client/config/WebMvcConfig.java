@@ -3,7 +3,6 @@ package org.client.config;
 import lombok.extern.slf4j.Slf4j;
 import org.client.controller.AddressController;
 import org.client.controller.IndividualController;
-import org.client.dto.IndividualDto;
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
