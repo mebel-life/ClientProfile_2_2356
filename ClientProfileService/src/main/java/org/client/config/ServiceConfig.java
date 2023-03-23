@@ -3,9 +3,10 @@ package org.client.config;
 
 import org.client.service.AddressService;
 import org.client.service.IndividualService;
+import org.client.service.WalletService;
 import org.client.service.impl.AddressServiceImpl;
 import org.client.service.impl.IndividualServiceImpl;
-import org.modelmapper.ModelMapper;
+import org.client.service.impl.WalletServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -15,18 +16,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class ServiceConfig {
 
-
     @Bean
     public IndividualService individualService() {
 
         return new IndividualServiceImpl();
     }
 
-
-
     @Bean
     public AddressService addressService(IndividualService individualService) {
         return new AddressServiceImpl(individualService);
+    }
+
+    @Bean
+    public WalletService walletService(IndividualService individualService) {
+        return new WalletServiceImpl(individualService);
     }
 
 }

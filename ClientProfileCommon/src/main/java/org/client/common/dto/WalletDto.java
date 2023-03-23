@@ -18,17 +18,27 @@ public class WalletDto {
     @Pattern(value = UUID_PATTERN)
     @JsonProperty(Fields.UUID)
     private String uuid;
-    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор клиента по стандарту RFC4122")
+
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор контактов пользователя по стандарту RFC4122")
     @Pattern(value = UUID_PATTERN)
     @JsonProperty(Fields.INDIVIDUAL_UUID)
     private String individualUuid;
 
+    @Schema(example = "13356", description = "Идентификатор Клиентского профиля")
+    @JsonProperty(Fields.INDIVIDUAL_ICP)
+    private String individualIcp;
+
+    @Schema(example = "30101810645250000416 ", description = "Рублевый счет клиента")
     @JsonProperty(Fields.RUB_WALLET)
     private String rubWallet;
 
+    @Schema(example = "30101810645250000416123378 ", description = "Валютный счет клиента (евро)")
+    @JsonProperty(Fields.EUR_WALLET)
     private String euroWallet;
 
-    private String dollarWallet;
+    @Schema(example = "30101810645250000416123378 ", description = "Валютный счет клиента (доллар США)")
+    @JsonProperty(Fields.USD_WALLET)
+    private String usdWallet;
 
     public static class Fields {
         public static final String UUID = "uuid";
@@ -36,5 +46,11 @@ public class WalletDto {
         public static final String INDIVIDUAL_UUID = "individualUuid";
 
         public static final String RUB_WALLET = "rubWallet";
+
+        public static final String EUR_WALLET = "eurWallet";
+
+        public static final String USD_WALLET = "usdWallet";
+
+        public static final String INDIVIDUAL_ICP = "icp";
     }
 }

@@ -21,7 +21,8 @@ import java.util.logging.Logger;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @ToString
 public class IndividualDto {
 
@@ -34,32 +35,42 @@ public class IndividualDto {
     @Schema(example = "312", description = "Идентификатор Клиентского профиля")
     @JsonProperty(Fields.ICP)
     private String icp;
-    @JsonProperty(Fields.NAME)
-    private String name;
-    @JsonProperty(Fields.SURNAME)
-    private String surname;
-    @JsonProperty(Fields.PATRONYMIC)
-    private String patronymic;
-    @JsonProperty(Fields.FULL_NAME)
-    private String fullName;
-    @JsonProperty(Fields.GENDER)
-    private String gender;
-    @JsonProperty(Fields.PLACE_OF_BIRTH)
-    private String placeOfBirth;
-    @JsonProperty(Fields.COUNTRY_OF_BIRTH)
-    private String countryOfBirth;
-    @JsonProperty(Fields.BIRTH_DATE)
-    private Date birthDate;
-    @JsonProperty(Fields.IS_ARCHIVED)
-    private boolean isArchived = false;
-    @JsonProperty(Fields.ARCHIVED_ICP)
-    private String archivedIcp = "";
 
+    @Schema(example = "Иван", description = "Имя клиента")
+    private String name;
+
+    @Schema(example = "Петров", description = "Фамилия клиента")
+    private String surname;
+
+    @Schema(example = "Федорович", description = "Отчество клиента")
+    private String patronymic;
+
+    @Schema(example = "Иван Федорович Петров", description = "ФИО клиента")
+    private String fullName;
+
+    @Schema(example = "М", description = "Пол клиента (мужской)")
+    private String gender;
+
+    @Schema(example = "Северодвинск", description = "Город, в котором родился клиент")
+    private String placeOfBirth;
+
+    @Schema(example = "Белорусь", description = "Страна, в которой родился клиент")
+    private String countryOfBirth;
+
+    @Schema(example = "1990-12-03", description = "Дата рождения клиента")
+    private Date birthDate;
+
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор документа по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
     private String documentsUuid;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор паспорта по стандарту RFC4122")
     private UUID rfPassportUuid;
 
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор контактов пользователя по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
     private String contactsUuid;
+
     @Hidden
     @JsonProperty(Fields.ADDRESS)
     private Collection<AddressDto> address;
@@ -67,16 +78,7 @@ public class IndividualDto {
     @Hidden
     @JsonProperty(Fields.WALLET)
     private Collection<WalletDto> wallet;
-    @Hidden
-    @JsonProperty(Fields.DOCUMENTS)
-    private Collection<DocumentsDto> documents;
 
-    @Hidden
-    @JsonProperty(Fields.RFPASSPORT)
-    private Collection<RFPassportDto> passport;
-    @Hidden
-    @JsonProperty(Fields.CONTACT_MEDIUM)
-    private Collection<ContactMediumDto> contactMedium;
     @JsonProperty(Fields.AVATAR)
     private Collection<AvatarDto> avatar;
 
@@ -86,45 +88,18 @@ public class IndividualDto {
 
         public static final String ICP = "icp";
 
-        public static final String NAME = "name";
-
-        public static final String SURNAME = "surname";
-
-        public static final String PATRONYMIC = "patronymic";
-
-        public static final String FULL_NAME = "fullName";
-
-        public static final String GENDER = "gender";
-
-        public static final String PLACE_OF_BIRTH = "placeOfBirth";
-
-        public static final String COUNTRY_OF_BIRTH = "countryOfBirth";
-
-        public static final String IS_ARCHIVED = "isArchived";
-
-        public static final String ARCHIVED_ICP = "archivedIcp";
-
-        public static final String BIRTH_DATE = "birthDate";
-
         public static final String ADDRESS = "address";
 
         public static final String WALLET = "wallet";
 
-        public static final String DOCUMENTS = "documents";
-
-        public static final String RFPASSPORT = "passport";
-
-        public static final String CONTACT_MEDIUM = "contactMedium";
-
         public static final String AVATAR = "avatar";
 
     }
-
     // Serializing Dto To Json object.
-    public static String Serializer(IndividualDto individualDto) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public static String Serializer (IndividualDto individualDto) {
+        ObjectMapper objectMapper=new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json = null;
+        String json= null;
         try {
             json = objectMapper.writeValueAsString(individualDto);
         } catch (JsonProcessingException e) {
@@ -137,8 +112,8 @@ public class IndividualDto {
     //Deserializing from Json to IndividualDto.
     public static IndividualDto Deserializer(String json) {
 
-        ObjectMapper objectMapper = new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        ObjectMapper objectMapper=new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,false);
         IndividualDto individualDto = null;
         try {
             individualDto = objectMapper.readValue(json, IndividualDto.class);
@@ -148,8 +123,8 @@ public class IndividualDto {
         return individualDto;
 
     }
+    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
-    private static Logger logger = Logger.getLogger(IndividualDto.class.getName());
 
 
 }

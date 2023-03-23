@@ -1,10 +1,9 @@
-package org.client.entity;
+package org.client.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -17,13 +16,12 @@ import javax.persistence.*;
 public class Documents {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String uuid;
 
     private String value;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "documents", cascade = CascadeType.ALL)
     private Individual individual;
 
 }

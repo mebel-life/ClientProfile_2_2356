@@ -1,79 +1,65 @@
 package org.client.service.impl;
 
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.client.common.dto.IndividualDto;
-import org.client.entity.ContactMedium;
-import org.client.entity.Documents;
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.*;
 import org.client.repo.IndividualRepo;
 import org.client.service.IndividualService;
-import org.client.util.IndividualUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.*;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
 public class IndividualServiceImpl implements IndividualService {
 
-    private IndividualRepo individualRepo;
-
-    private IndividualUtils individualUtils;
-
-
+    @Autowired
+    IndividualRepo individualRepo;
 
     public IndividualServiceImpl() {}
 
     @Transactional
     @Override // добавить клиента
-    public void addClient(IndividualDto individualDto) {
-        Individual individual = IndividualUtils.convertToEntity(individualDto);
-        individualRepo.save(individual);
+    public void addClient(String icp, String contactsUuid, String documentsUuid, UUID rfPassportUuid,
+                          Date birthDate, String countryOfBirth, String fullName, String gender,
+                          String name, String patronymic, String placeOfBirth, String surname) {
+
+        individualRepo.createUser(UUID.randomUUID().toString(), birthDate, countryOfBirth, fullName, gender, icp, name, patronymic,
+                placeOfBirth, surname, contactsUuid, documentsUuid, rfPassportUuid);
     }
 
     @Override //получить информацию о клиенте по icp
     public IndividualDto getClient(String icp) {
-        Individual individual = individualRepo.findAllFieldsByIcp(icp);
+        Individual i = individualRepo.findAllFieldsByIcp(icp);
 
-        IndividualDto individualDto = new IndividualDto();
-        individualDto.setUuid(individual.getUuid());
-        individualDto.setBirthDate(individual.getBirthDate());
-        individualDto.setCountryOfBirth(individual.getCountryOfBirth());
-        individualDto.setFullName(individual.getFullName());
-        individualDto.setGender(individual.getGender());
-        individualDto.setIcp(individual.getIcp());
-        individualDto.setName(individual.getName());
-        individualDto.setPlaceOfBirth(individual.getPlaceOfBirth());
-        individualDto.setPatronymic(individual.getPatronymic());
-        individualDto.setSurname(individual.getSurname());
-        individualDto.setSurname(individual.getSurname());
-
-        ContactMedium cont = individualRepo.findContactByIndivIcp(icp);
-        String contactUuuid =  cont.getUuid(); // находим uuid  ContactMedium для этого юзера
-
-        RFPassport passp = individualRepo.findPassportUuidByIndividIcp(icp);
-        UUID passpUuid = passp.getUuid(); // находим uuid паспорта для этого юзера
-
-        Documents docum = individualRepo.findDocumentUuidByIndividIcp(icp);
-        String documentuid = docum.getUuid(); // находим uuid documents для этого юзера
-
-        individualDto.setContactsUuid(contactUuuid);
-        individualDto.setDocumentsUuid(documentuid);
-        individualDto.setRfPassportUuid(passpUuid);
+        IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
+                surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
+                placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
+                rfPassportUuid(i.getRfPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
 
         return individualDto;
     }
 
     @Override //получить всех клиентов
-    public List<Individual> getAll(){
-       return individualRepo.findAll();
+    public List<IndividualDto> getAll(){
+        List<Individual> individualList= individualRepo.findAll();
+        List<IndividualDto> individualDtoList = new ArrayList<>();
+
+        //для каждого элемента individualList создадим объект типа IndividualDto, и присвоим ему значения из элемента individualList.
+        // Потом  - поместим этот объект в лист AddressDto
+        for(Individual i: individualList){
+            IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
+                    surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
+                    placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
+                    rfPassportUuid(i.getRfPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
+            individualDtoList.add(individualDto);
+        }
+        return individualDtoList;
     }
 
     @Override //найти клиента (icp, name, uuid) по номеру телефона
@@ -85,7 +71,7 @@ public class IndividualServiceImpl implements IndividualService {
     }
 
     @Transactional
-    @Override  // редактировать клиента
+    @Override  // редактировать клиента.
     public void editClient(String icp, Date birthDate2, String countryOfBirth2, String fullName2, String gender2,
                           String name2, String patronymic2, String placeOfBirth2, String surname2) {
         Individual userFromDB = individualRepo.findAllFieldsByIcp(icp); //нашли пользователя в базе по icp

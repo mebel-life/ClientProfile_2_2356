@@ -1,7 +1,7 @@
 package org.client.controllers;
 
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 import org.client.service.IndividualService;
 import org.client.util.DataInfoHandler;
 import org.client.util.NoSuchIndividualException;

@@ -1,6 +1,5 @@
 package org.client.repo;
 
-import org.client.common.dto.IndividualDto;
 import org.client.entity.ContactMedium;
 import org.client.entity.Documents;
 import org.client.entity.Individual;
