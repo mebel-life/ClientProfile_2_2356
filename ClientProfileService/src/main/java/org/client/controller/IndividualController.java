@@ -51,7 +51,9 @@ public class IndividualController {
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(401).build();
         }
-        return new ResponseEntity<>(individualService.getClient(icp), HttpStatus.OK);
+        IndividualDto individualDto = individualService.getClient(icp);
+        individualService.checkIsArchived(individualDto);
+        return new ResponseEntity<>(individualDto, HttpStatus.OK);
     }
 
     @PostMapping("/create")
@@ -62,6 +64,7 @@ public class IndividualController {
         } catch (HttpClientErrorException e) {
             return ResponseEntity.status(401).build();
         }
+        individualService.updateClientIfArchived(dto);
         individualService.addClient(dto.getIcp(),  dto.getContactsUuid(),
                 dto.getDocumentsUuid(), dto.getRfPassportUuid(), dto.getBirthDate(), dto.getCountryOfBirth(),
                 dto.getFullName(), dto.getGender(), dto.getName(), dto.getPatronymic(),

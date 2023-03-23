@@ -25,5 +25,7 @@ public interface IndividualService {
 
     void deleteIndivid(String icp);
 
+    void updateClientIfArchived(IndividualDto individual);
 
+    void checkIsArchived(IndividualDto individualDto);
 }

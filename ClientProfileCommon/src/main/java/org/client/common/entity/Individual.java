@@ -32,13 +32,16 @@ public class Individual {
     private String countryOfBirth;
     private Date birthDate;
 
+    private boolean isArchived = false;
+
+    private String actualIcp = "";
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "documentID")
     private Documents documents;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rfPassport")
-    private RFPassport rfPassport;
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
+    private Collection<RFPassport> passport;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contactID")

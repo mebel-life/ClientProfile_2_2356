@@ -7,9 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 @AllArgsConstructor
 public class IndividualUtils {
-    private static ModelMapper modelMapper;
-    public static Individual convertToEntity(IndividualDto individualDto) {
+    private  ModelMapper modelMapper;
+    public  Individual convertToEntity(IndividualDto individualDto) {
         Individual individual = modelMapper.map(individualDto, Individual.class);
         return individual;
+    }
+
+    public  IndividualDto convertToDto(Individual individual) {
+        IndividualDto individualDto = modelMapper.map(individual, IndividualDto.class);
+        return individualDto;
     }
 }

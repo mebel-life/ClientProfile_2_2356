@@ -52,5 +52,6 @@ public class RFPassport {
     private String passportStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "individual_id")
     private Individual individual;
 }

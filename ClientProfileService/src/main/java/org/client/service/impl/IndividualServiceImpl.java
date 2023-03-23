@@ -5,6 +5,8 @@ import org.client.common.dto.IndividualDto;
 import org.client.common.entity.*;
 import org.client.repo.IndividualRepo;
 import org.client.service.IndividualService;
+import org.client.util.ArchivedClientException;
+import org.client.util.IndividualUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class IndividualServiceImpl implements IndividualService {
 
-    @Autowired
-    IndividualRepo individualRepo;
 
-    public IndividualServiceImpl() {}
+    private IndividualUtils individualUtils;
+    private IndividualRepo individualRepo;
+
+    public IndividualServiceImpl() {
+    }
 
     @Transactional
     @Override // добавить клиента
@@ -38,35 +42,35 @@ public class IndividualServiceImpl implements IndividualService {
     public IndividualDto getClient(String icp) {
         Individual i = individualRepo.findAllFieldsByIcp(icp);
 
-        IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
-                surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
-                placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
-                rfPassportUuid(i.getRfPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
+//        IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
+//                surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
+//                placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
+//                rfPassportUuid(i.getPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
 
-        return individualDto;
+        return null;
     }
 
     @Override //получить всех клиентов
-    public List<IndividualDto> getAll(){
-        List<Individual> individualList= individualRepo.findAll();
+    public List<IndividualDto> getAll() {
+        List<Individual> individualList = individualRepo.findAll();
         List<IndividualDto> individualDtoList = new ArrayList<>();
 
         //для каждого элемента individualList создадим объект типа IndividualDto, и присвоим ему значения из элемента individualList.
         // Потом  - поместим этот объект в лист AddressDto
-        for(Individual i: individualList){
-            IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
-                    surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
-                    placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
-                    rfPassportUuid(i.getRfPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
-            individualDtoList.add(individualDto);
-        }
+//        for(Individual i: individualList){
+//            IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
+//                    surname(i.getSurname()).patronymic(i.getPatronymic()).fullName(i.getFullName()).gender(i.getGender()).
+//                    placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
+//                    rfPassportUuid(i.getPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
+//            individualDtoList.add(individualDto);
+//        }
         return individualDtoList;
     }
 
     @Override //найти клиента (icp, name, uuid) по номеру телефона
     public IndividualDto getClientByPhoneNum(String value) {
         Individual individual = individualRepo.findByPhNum(value);
-         IndividualDto individualDto = IndividualDto.builder().icp(individual.getIcp()).name(individual.getName()).
+        IndividualDto individualDto = IndividualDto.builder().icp(individual.getIcp()).name(individual.getName()).
                 uuid(individual.getUuid()).build();
         return individualDto;
     }
@@ -74,11 +78,11 @@ public class IndividualServiceImpl implements IndividualService {
     @Transactional
     @Override  // редактировать клиента.
     public void editClient(String icp, Date birthDate2, String countryOfBirth2, String fullName2, String gender2,
-                          String name2, String patronymic2, String placeOfBirth2, String surname2) {
+                           String name2, String patronymic2, String placeOfBirth2, String surname2) {
         Individual userFromDB = individualRepo.findAllFieldsByIcp(icp); //нашли пользователя в базе по icp
 
         ContactMedium cont = individualRepo.findContactByIndivIcp(icp);
-        String contactUuuid =  cont.getUuid(); // находим uuid  первичный ключ для ContactMedium для этого юзера
+        String contactUuuid = cont.getUuid(); // находим uuid  первичный ключ для ContactMedium для этого юзера
 
         RFPassport passp = individualRepo.findPassportUuidByIndividIcp(icp);
         UUID passpUuid = passp.getUuid(); // находим uuid первичный ключ для паспорта для этого юзера
@@ -104,14 +108,25 @@ public class IndividualServiceImpl implements IndividualService {
         individualRepo.deleteById(ind.getUuid());
     }
 
-//    public boolean isClientArchived(IndividualDto individual) {
-//        Individual entity = individualUtils.convertToEntity(individual);
-//        RFPassport activePassport = entity.getPassport().stream().
-//                filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
-//        if (individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber()) != null) {
-//            return true;
-//        }
-//        return false;
-//    }
+    @Transactional
+    public void updateClientIfArchived(IndividualDto individual) {
+        Individual entity = individualUtils.convertToEntity(individual);
+        RFPassport activePassport = entity.getPassport().stream().
+                filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
+        Individual archivedClient;
+        try {
+            archivedClient = individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber());
+            archivedClient.setArchived(true);
+            archivedClient.setActualIcp(individual.getIcp());
+            individualRepo.save(archivedClient);
+        } catch (RuntimeException e) {
+            //ignore
+        }
+    }
 
+    public void checkIsArchived(IndividualDto individualDto) {
+        if (individualDto.isArchived()) {
+            throw new ArchivedClientException(String.format("Client with this ICP is archived, actual ICP is %s", individualDto.getActualIcp()));
+        }
+    }
 }

@@ -54,14 +54,14 @@ public class AddressServiceImpl implements AddressService {
 
         //для каждого элемента individualList создадим объект типа IndividualDto, и присвоим ему значения из элемента individualList.
         // Потом  - поместим этот объект в лист IndividualDtoList
-        for(Individual i: individualList){
-            IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
-                    fullName(i.getFullName()).surname(i.getSurname()).patronymic(i.getPatronymic()).gender(i.getGender()).
-                    placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
-                    rfPassportUuid(i.getRfPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
-
-            IndividualDtoList.add(individualDto);
-        }
+//        for(Individual i: individualList){
+//            IndividualDto individualDto = IndividualDto.builder().uuid(i.getUuid()).icp(i.getIcp()).name(i.getName()).
+//                    fullName(i.getFullName()).surname(i.getSurname()).patronymic(i.getPatronymic()).gender(i.getGender()).
+//                    placeOfBirth(i.getPlaceOfBirth()).countryOfBirth(i.getCountryOfBirth()).birthDate(i.getBirthDate()).documentsUuid(i.getDocuments().getUuid()).
+//                    rfPassportUuid(i.getPassport().getUuid()).contactsUuid(i.getContacts().getUuid()).build();
+//
+//            IndividualDtoList.add(individualDto);
+//        }
         return IndividualDtoList;
     }
 

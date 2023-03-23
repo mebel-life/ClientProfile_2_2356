@@ -2,7 +2,7 @@ package org.client.service.impl;
 
 import org.client.common.dto.IndividualDto;
 import org.client.common.dto.RFPassportDto;
-import org.client.entity.Individual;
+import org.client.common.entity.Individual;
 import org.client.service.IndividualService;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;

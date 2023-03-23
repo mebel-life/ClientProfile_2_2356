@@ -21,8 +21,7 @@ import java.util.logging.Logger;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @ToString
 public class IndividualDto {
 
@@ -59,6 +58,10 @@ public class IndividualDto {
 
     @Schema(example = "1990-12-03", description = "Дата рождения клиента")
     private Date birthDate;
+    @Schema(description = "Флаг, показывающий архивный ли клиент")
+    private boolean isArchived = false;
+    @Schema(example = "123", description = "Если клиент актуальный, то пусто, если клиент заархивирован, хранит актуальный icp этого клиента")
+    private String actualIcp = "";
 
     @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор документа по стандарту RFC4122")
     @Pattern(value = UUID_PATTERN)
@@ -74,6 +77,10 @@ public class IndividualDto {
     @Hidden
     @JsonProperty(Fields.ADDRESS)
     private Collection<AddressDto> address;
+
+    @Hidden
+    @JsonProperty(Fields.PASSPORT)
+    private Collection<RFPassportDto> passport;
 
     @Hidden
     @JsonProperty(Fields.WALLET)
@@ -94,12 +101,14 @@ public class IndividualDto {
 
         public static final String AVATAR = "avatar";
 
+        public static final String PASSPORT = "passport";
     }
+
     // Serializing Dto To Json object.
-    public static String Serializer (IndividualDto individualDto) {
-        ObjectMapper objectMapper=new ObjectMapper();
+    public static String Serializer(IndividualDto individualDto) {
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json= null;
+        String json = null;
         try {
             json = objectMapper.writeValueAsString(individualDto);
         } catch (JsonProcessingException e) {
@@ -112,8 +121,8 @@ public class IndividualDto {
     //Deserializing from Json to IndividualDto.
     public static IndividualDto Deserializer(String json) {
 
-        ObjectMapper objectMapper=new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,false);
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         IndividualDto individualDto = null;
         try {
             individualDto = objectMapper.readValue(json, IndividualDto.class);
@@ -123,8 +132,8 @@ public class IndividualDto {
         return individualDto;
 
     }
-    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
+    private static Logger logger = Logger.getLogger(IndividualDto.class.getName());
 
 
 }

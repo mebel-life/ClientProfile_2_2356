@@ -61,6 +61,6 @@ public interface IndividualRepo extends JpaRepository<Individual, String>{
     void rewriteContactDocPassp(@Param("contactUuid") String contactUuid, @Param("documentUuid") String documentUuid,
                                       @Param("passpId") UUID passpId, @Param("individUuid") String individUuid);
 
-    @Query(value = "from Individual as indiv join fetch indiv.rfPassport as passport where passport.series = :series and passport.number = :number")
+    @Query(value = "from Individual as indiv join fetch indiv.passport as passport where passport.series = :series and passport.number = :number")
     Individual findByPassport(String series, String number);
 }
