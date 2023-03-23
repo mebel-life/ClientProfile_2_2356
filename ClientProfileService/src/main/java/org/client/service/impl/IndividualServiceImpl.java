@@ -7,14 +7,15 @@ import org.client.repo.IndividualRepo;
 import org.client.service.IndividualService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-@Component
 @AllArgsConstructor
 public class IndividualServiceImpl implements IndividualService {
 
@@ -103,14 +104,14 @@ public class IndividualServiceImpl implements IndividualService {
         individualRepo.deleteById(ind.getUuid());
     }
 
-    public boolean isClientArchived(IndividualDto individual) {
-        Individual entity = individualUtils.convertToEntity(individual);
-        RFPassport activePassport = entity.getPassport().stream().
-                filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
-        if (individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber()) != null) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean isClientArchived(IndividualDto individual) {
+//        Individual entity = individualUtils.convertToEntity(individual);
+//        RFPassport activePassport = entity.getPassport().stream().
+//                filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
+//        if (individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber()) != null) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 }

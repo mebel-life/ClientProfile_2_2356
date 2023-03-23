@@ -14,6 +14,7 @@ import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.client.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;

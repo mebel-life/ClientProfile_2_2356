@@ -33,7 +33,7 @@ public class IndividualController {
 
     @GetMapping("/getAll")
     @Operation(summary = "находим всех пользователей")
-    public ResponseEntity<List<IndividualDto>> getAll() {
+    public ResponseEntity<List<IndividualDto>> getAll(HttpServletRequest request) {
         try {
             authUtil.checkAuth(request);
         } catch (HttpClientErrorException e) {
@@ -44,7 +44,7 @@ public class IndividualController {
 
     @GetMapping("/getClientByIcp/{icp}")
     @Operation(summary = "Информация о клиенте по ICP")
-    public ResponseEntity<IndividualDto> getByIcp(@Parameter(description = "ICP уникальный ключ клиента") String ICP,
+    public ResponseEntity<IndividualDto> getByIcp(HttpServletRequest request,
                                                   @PathVariable(value="icp") String icp) {
         try {
             authUtil.checkAuth(request);
@@ -56,7 +56,7 @@ public class IndividualController {
 
     @PostMapping("/create")
     @Operation(summary = "создaние нового клиента")
-    public ResponseEntity<Void> createIndividual(@RequestBody IndividualDto dto) {
+    public ResponseEntity<Void> createIndividual(@RequestBody IndividualDto dto, HttpServletRequest request) {
         try {
             authUtil.checkAuth(request);
         } catch (HttpClientErrorException e) {
@@ -71,7 +71,7 @@ public class IndividualController {
 
     @GetMapping("/getClientByPhonenum/{value}")
     @Operation(summary = "Информация о клиенте по номеру телефона")
-    public ResponseEntity<IndividualDto> getByPhonenumber(@Parameter(description = "телефон клиента") String Value,
+    public ResponseEntity<IndividualDto> getByPhonenumber(HttpServletRequest request,
                                                           @PathVariable(value="value") String value) {
         try {
             authUtil.checkAuth(request);
@@ -83,7 +83,7 @@ public class IndividualController {
 
     @PutMapping("/edit")
     @Operation(summary = "редактирование информации о клиенте")
-    public ResponseEntity<Void> editIndividual(@RequestBody IndividualDto dto) {
+    public ResponseEntity<Void> editIndividual(@RequestBody IndividualDto dto, HttpServletRequest request) {
         try {
             authUtil.checkAuth(request);
         } catch (HttpClientErrorException e) {
@@ -97,7 +97,7 @@ public class IndividualController {
 
     @PostMapping("/delete")  //post запрос с icp клиента в  теле
     @Operation(summary = "удаление клиента по icp клиента")
-    public ResponseEntity<Void> deleteIndividual(@RequestBody IndividualDto dto) {
+    public ResponseEntity<Void> deleteIndividual(@RequestBody IndividualDto dto, HttpServletRequest request) {
         try {
             authUtil.checkAuth(request);
         } catch (HttpClientErrorException e) {

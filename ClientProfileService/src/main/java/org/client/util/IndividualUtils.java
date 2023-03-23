@@ -2,7 +2,7 @@ package org.client.util;
 
 import lombok.AllArgsConstructor;
 import org.client.common.dto.IndividualDto;
-import org.client.entity.Individual;
+import org.client.common.entity.Individual;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 @AllArgsConstructor
