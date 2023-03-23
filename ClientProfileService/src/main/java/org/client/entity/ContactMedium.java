@@ -29,12 +29,10 @@ public class ContactMedium {
     @ManyToOne(fetch = FetchType.LAZY)
     private Individual individual;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //на один uuid .ContactMedium может ссылаться много имейлов
-    @JoinColumn(name = "contactMediumId")
+    @OneToMany(mappedBy = "contacts",cascade = CascadeType.ALL, fetch = FetchType.LAZY) //на один uuid .ContactMedium может ссылаться много имейлов
     private Collection<Email> emails;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //на один uuid .ContactMedium. может ссылаться много тлф-номеров
-    @JoinColumn(name = "contactMediumId")
+    @OneToMany(mappedBy = "contacts",cascade = CascadeType.ALL, fetch = FetchType.LAZY) //на один uuid .ContactMedium. может ссылаться много тлф-номеров
     private Collection<PhoneNumber> phoneNumbers;
 
 }

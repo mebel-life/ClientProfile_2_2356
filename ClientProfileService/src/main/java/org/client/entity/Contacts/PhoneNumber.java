@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.client.entity.ContactMedium;
+import org.client.entity.Individual;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,5 +22,7 @@ public class PhoneNumber {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String uuid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ContactMedium contacts;
     private String value;
 }

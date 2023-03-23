@@ -6,15 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.client.common.dto.WalletDto;
+import org.client.repo.IndividualRepo;
 import org.hibernate.annotations.GenericGenerator;
 import org.intellij.lang.annotations.Pattern;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Wallet {
@@ -23,7 +23,8 @@ public class Wallet {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String uuid;
 
-    private String individualUuid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Individual individual;
 
     private String rubWallet;
 

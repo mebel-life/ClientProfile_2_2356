@@ -59,8 +59,10 @@ public class Individual {
 
     private String contactsUuid;
 
-    @OneToMany(mappedBy = "individual")
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
     private Collection<Avatar> avatar;
+    @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
+    private Collection<Wallet> wallet;
 
     @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL)
     private Collection<Documents> documents;
