@@ -1,17 +1,14 @@
 package org.client.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.client.common.util.AuthUtil;
 import org.client.common.dto.IndividualDto;
-import org.client.common.entity.Individual;
 
 import org.client.service.IndividualService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -44,13 +41,13 @@ public class IndividualController {
 
     @GetMapping("/getClientByIcp/{icp}")
     @Operation(summary = "Информация о клиенте по ICP")
-    public ResponseEntity<IndividualDto> getByIcp(HttpServletRequest request,
+    public ResponseEntity<IndividualDto> getByIcp(
                                                   @PathVariable(value="icp") String icp) {
-        try {
-            authUtil.checkAuth(request);
-        } catch (HttpClientErrorException e) {
-            return ResponseEntity.status(401).build();
-        }
+//        try {
+//            authUtil.checkAuth(request);
+//        } catch (HttpClientErrorException e) {
+//            return ResponseEntity.status(401).build();
+//        }
         IndividualDto individualDto = individualService.getClient(icp);
         individualService.checkIsArchived(individualDto);
         return new ResponseEntity<>(individualDto, HttpStatus.OK);
@@ -58,17 +55,18 @@ public class IndividualController {
 
     @PostMapping("/create")
     @Operation(summary = "создaние нового клиента")
-    public ResponseEntity<Void> createIndividual(@RequestBody IndividualDto dto, HttpServletRequest request) {
-        try {
-            authUtil.checkAuth(request);
-        } catch (HttpClientErrorException e) {
-            return ResponseEntity.status(401).build();
-        }
+    public ResponseEntity<Void> createIndividual(@RequestBody IndividualDto dto) {
+//        try {
+//            authUtil.checkAuth(request);
+//        } catch (HttpClientErrorException e) {
+//            return ResponseEntity.status(401).build();
+//        }
         individualService.updateClientIfArchived(dto);
-        individualService.addClient(dto.getIcp(),  dto.getContactsUuid(),
-                dto.getDocumentsUuid(), dto.getRfPassportUuid(), dto.getBirthDate(), dto.getCountryOfBirth(),
-                dto.getFullName(), dto.getGender(), dto.getName(), dto.getPatronymic(),
-                dto.getPlaceOfBirth(), dto.getSurname());
+//        individualService.addClient(dto.getIcp(),  dto.getContactsUuid(),
+//                dto.getDocumentsUuid(), dto.getRfPassportUuid(), dto.getBirthDate(), dto.getCountryOfBirth(),
+//                dto.getFullName(), dto.getGender(), dto.getName(), dto.getPatronymic(),
+//                dto.getPlaceOfBirth(), dto.getSurname());
+        individualService.addClient(dto);
         return ResponseEntity.status(201).build();
     }
 

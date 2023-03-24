@@ -22,8 +22,9 @@ public interface IndividualRepo extends JpaRepository<Individual, String>{
     Optional<Individual> findIndividualByIcp(String icp); //находит только имя, фио, uuid. Остальные поля не находит...
 
     //  ищем все поля пользователя по icp
-    @Query(value = "SELECT * FROM public.individual where icp = :icp", nativeQuery = true)
+    @Query(value = "select distinct i from Individual i join fetch i.passport where i.icp = :icp")
     Individual findAllFieldsByIcp(@Param("icp") String icp);
+
 
     @Transactional
     @Modifying(clearAutomatically = true)

@@ -1,19 +1,12 @@
 package org.client.controller;
 
-import io.jsonwebtoken.Jwt;
 import org.client.model.JwtRequest;
 import org.client.model.JwtResponse;
-import org.client.service.JwtUserDetailsService;
-import org.client.service.RedisJwtService;
+import org.client.JwtUserDetailsService;
+import org.client.RedisJwtService;
 import org.client.token.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.*;
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -22,12 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 

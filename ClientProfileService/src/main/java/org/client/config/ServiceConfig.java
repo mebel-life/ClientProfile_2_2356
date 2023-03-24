@@ -7,6 +7,7 @@ import org.client.service.WalletService;
 import org.client.service.impl.AddressServiceImpl;
 import org.client.service.impl.IndividualServiceImpl;
 import org.client.service.impl.WalletServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,6 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class ServiceConfig {
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
     @Bean
     public IndividualService individualService() {
 

@@ -1,10 +1,9 @@
 package org.client.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.client.common.entity.Contacts.Email;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -16,10 +15,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Individual {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String uuid;
 
     private String icp;
@@ -34,7 +34,7 @@ public class Individual {
 
     private boolean isArchived = false;
 
-    private String actualIcp = "";
+    private String actualIcp = icp;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "documentID")
@@ -50,7 +50,7 @@ public class Individual {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="individ_address",
             joinColumns=  @JoinColumn(name="individ_uuid", referencedColumnName="uuid"),
-            inverseJoinColumns= @JoinColumn(name="address_uuid", referencedColumnName="adr_uuid") )
+            inverseJoinColumns= @JoinColumn(name="address_uuid", referencedColumnName="uuid") )
     private Collection<Address> addresses;
 
     //двусторонний  @OneToMany

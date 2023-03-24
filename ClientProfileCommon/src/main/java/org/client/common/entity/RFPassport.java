@@ -3,6 +3,7 @@ package org.client.common.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -17,11 +18,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "rfPassports")
 public class RFPassport {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+
     @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор клиента по стандарту RFC4122")
-    private UUID uuid;
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String uuid;
     @Schema(example = "11 04", description = "Серия паспорта, первые 4 цифры")
     private String series;
     @Schema(example = "123456", description = "6-ти значный номер паспорта")
@@ -53,5 +54,6 @@ public class RFPassport {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "individual_id")
+    @ToString.Exclude
     private Individual individual;
 }
