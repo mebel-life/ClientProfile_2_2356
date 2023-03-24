@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.client.common.entity.Contacts.Email;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -16,9 +18,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @Builder
 public class Wallet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name="wallet_uuid")
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String uuid;
 
     private String rubWallet;

@@ -1,20 +1,14 @@
 package org.client.service.impl;
 
 import lombok.AllArgsConstructor;
-import org.client.common.dto.AddressDto;
-import org.client.common.dto.IndividualDto;
 import org.client.common.dto.WalletDto;
-import org.client.common.entity.Address;
 import org.client.common.entity.Individual;
 import org.client.common.entity.Wallet;
-import org.client.repo.AddressRepo;
 import org.client.repo.IndividualRepo;
 import org.client.repo.WalletRepo;
-import org.client.service.AddressService;
 import org.client.service.IndividualService;
 import org.client.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
