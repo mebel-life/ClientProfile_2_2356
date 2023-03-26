@@ -7,6 +7,7 @@ import org.client.common.entity.*;
 import org.client.repo.IndividualRepo;
 import org.client.service.IndividualService;
 import org.client.util.ArchivedClientException;
+import org.client.util.ClientAlreadyExistsException;
 import org.client.util.IndividualUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 @Slf4j
 @AllArgsConstructor
 public class IndividualServiceImpl implements IndividualService {
@@ -40,11 +42,12 @@ public class IndividualServiceImpl implements IndividualService {
 
     @Transactional
     @Override
-     // добавить клиента
+    // добавить клиента
     public void addClient(IndividualDto individualDto) {
         Individual individual = individualUtils.convertToEntity(individualDto);
         individualRepo.save(individual);
     }
+
     @Override //получить информацию о клиенте по icp
     public IndividualDto getClient(String icp) {
         Individual i = individualRepo.findAllFieldsByIcp(icp);
@@ -121,17 +124,26 @@ public class IndividualServiceImpl implements IndividualService {
         Individual entity = individualUtils.convertToEntity(individual);
         RFPassport activePassport = entity.getPassport().stream().
                 filter(passport -> passport.getPassportStatus().equals("active")).collect(Collectors.toList()).get(0);
-        Individual archivedClient;
+        Individual archivedClient = null;
+        try {
+            archivedClient = individualRepo.findAllFieldsByIcp(individual.getIcp());
+            if (archivedClient.getIcp().equals(individual.getIcp())) {
+                throw new ClientAlreadyExistsException("Client already exists");
+            }
+        } catch (NullPointerException e) {
+            //ignore
+        }
         try {
             archivedClient = individualRepo.findByPassport(activePassport.getSeries(), activePassport.getNumber());
             archivedClient.setArchived(true);
             archivedClient.setActualIcp(individual.getIcp());
             log.info(String.format("marking archived client %s", archivedClient));
             individualRepo.save(archivedClient);
-        } catch (RuntimeException e) {
-            //ignore
+        } catch (NullPointerException e) {
         }
     }
+
+
 
     public void checkIsArchived(IndividualDto individualDto) {
         log.info(String.format("checking if user archived %s", individualDto));

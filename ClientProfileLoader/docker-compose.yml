@@ -1,0 +1,14 @@
+version: '1.0'
+services:
+  postgres_db:
+    build:
+      context: .
+      dockerfile: postgres.dockerfile
+    container_name: 'postgres'
+    environment:
+        POSTGRES_DB: 'clientprofile'
+        POSTGRES_USER: 'postgres'
+        POSTGRES_PASSWORD: 'damuhe65'
+    ports:
+          - "5432:5432"
+    restart: unless-stopped
