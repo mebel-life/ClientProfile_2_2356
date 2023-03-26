@@ -1,7 +1,11 @@
 package org.client.service.impl;
 
 
-import org.client.common.dto.*;
+import org.client.common.dto.ContactMediumDto;
+import org.client.common.dto.EmailDto;
+import org.client.common.dto.IndividualDto;
+import org.client.common.dto.PhoneNumberDto;
+import org.client.common.dto.RFPassportDto;
 import org.client.dto.shortIndividual.IndividualClientDto;
 import org.client.dto.shortIndividual.IndividualDocStatusDto;
 import org.client.dto.shortIndividual.IndividualShortDto;
@@ -40,17 +44,22 @@ public class MaskingServiceImpl implements MaskingService {
      */
     @Override
     public IndividualDto maskIndividual(IndividualDto individual) {
+        IndividualDto maskedIndividual = individual;
         if (individual != null) {
-            individual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
-            individual.setSurname(maskSurname(individual.getSurname()));
-            individual.getContactMedium().forEach(this::maskContacts);
-            individual.setContactMedium(individual.getContactMedium());
-            individual.getPassport().forEach(this::maskRFPassport);
-            individual.setPassport(individual.getPassport());
+            maskedIndividual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
+            maskedIndividual.setSurname(maskSurname(individual.getSurname()));
+            if (individual.getContactMedium() != null) {
+                individual.getContactMedium().forEach(this::maskContacts);
+            }
+            maskedIndividual.setContactMedium(individual.getContactMedium());
+            if (individual.getPassport() != null) {
+                individual.getPassport().forEach(this::maskRFPassport);
+            }
+            maskedIndividual.setPassport(individual.getPassport());
         } else {
             throw new ClientInfoException();
         }
-        return individual;
+        return maskedIndividual;
     }
 
     @Override
@@ -129,7 +138,7 @@ public class MaskingServiceImpl implements MaskingService {
                 Collection<PhoneNumberDto> phoneNumbers = contactMedium.getPhoneNumbers();
                 phoneNumbers.forEach(phoneNumber -> {
                     String value = phoneNumber.getValue();
-                    phoneNumber.setValue(value.substring(0, 4) + maskTextInfo(value.substring(4)));
+                    phoneNumber.setValue(value.substring(0, 5) + maskTextInfo(value.substring(5)));
                 });
                 contactMedium.setPhoneNumbers(phoneNumbers);
             } else {

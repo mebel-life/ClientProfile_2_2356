@@ -22,10 +22,6 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Entity
-@Table(name="avatarData")
 public class AvatarDto {
 
     @Id

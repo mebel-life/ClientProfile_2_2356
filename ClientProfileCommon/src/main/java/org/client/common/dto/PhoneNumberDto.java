@@ -6,10 +6,9 @@ import lombok.*;
 import org.intellij.lang.annotations.Pattern;
 
 @Schema(description = "модель, описывающая электронную почту пользователя")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class PhoneNumberDto {
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";

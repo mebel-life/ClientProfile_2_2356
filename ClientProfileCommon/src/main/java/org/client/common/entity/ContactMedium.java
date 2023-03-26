@@ -1,26 +1,28 @@
-package org.client.entity;
+package org.client.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.client.entity.Contacts.Email;
-import org.client.entity.Contacts.PhoneNumber;
+import org.client.common.entity.Contacts.Email;
+import org.client.common.entity.Contacts.PhoneNumber;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.UUID;
 
 @Data
 @Entity
-@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 
 public class ContactMedium {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String uuid;  // на один ай ди может ссылаться  и phone_number, и email
 
     //Двусторонний OneToOne

@@ -14,14 +14,14 @@ import org.intellij.lang.annotations.Pattern;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @Schema(description = "Модель, описывающая пользоватяле в ЛК банка")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @ToString
 public class IndividualDto {
 
@@ -35,39 +35,57 @@ public class IndividualDto {
     @JsonProperty(Fields.ICP)
     private String icp;
 
+    @Schema(example = "Иван", description = "Имя клиента")
     private String name;
 
+    @Schema(example = "Петров", description = "Фамилия клиента")
     private String surname;
 
+    @Schema(example = "Федорович", description = "Отчество клиента")
     private String patronymic;
 
+    @Schema(example = "Иван Федорович Петров", description = "ФИО клиента")
     private String fullName;
 
+    @Schema(example = "М", description = "Пол клиента (мужской)")
     private String gender;
 
+    @Schema(example = "Северодвинск", description = "Город, в котором родился клиент")
     private String placeOfBirth;
 
+    @Schema(example = "Белорусь", description = "Страна, в которой родился клиент")
     private String countryOfBirth;
 
+    @Schema(example = "1990-12-03", description = "Дата рождения клиента")
     private Date birthDate;
+    @Schema(description = "Флаг, показывающий архивный ли клиент")
+    private boolean isArchived = false;
+    @Schema(example = "123", description = "Если клиент актуальный, то пусто, если клиент заархивирован, хранит актуальный icp этого клиента")
+    private String actualIcp = "";
+
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор документа по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
+    private String documentsUuid;
+
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор паспорта по стандарту RFC4122")
+    private UUID rfPassportUuid;
+
+    @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор контактов пользователя по стандарту RFC4122")
+    @Pattern(value = UUID_PATTERN)
+    private String contactsUuid;
 
     @Hidden
     @JsonProperty(Fields.ADDRESS)
     private Collection<AddressDto> address;
 
     @Hidden
-    @JsonProperty(Fields.WALLET)
-    private Collection<WalletDto> wallet;
-    @Hidden
-    @JsonProperty(Fields.DOCUMENTS)
-    private Collection<DocumentsDto> documents;
+    @JsonProperty(Fields.PASSPORT)
+    private Collection<RFPassportDto> passport;
 
     @Hidden
-    @JsonProperty(Fields.RFPASSPORT)
-    private Collection<RFPassportDto> passport;
-    @Hidden
-    @JsonProperty(Fields.CONTACT_MEDIUM)
-    private Collection<ContactMediumDto> contactMedium;
+    @JsonProperty(Fields.WALLET)
+    private Collection<WalletDto> wallet;
+
     @JsonProperty(Fields.AVATAR)
     private Collection<AvatarDto> avatar;
 
@@ -81,20 +99,16 @@ public class IndividualDto {
 
         public static final String WALLET = "wallet";
 
-        public static final String DOCUMENTS = "documents";
-
-        public static final String RFPASSPORT = "passport";
-
-        public static final String CONTACT_MEDIUM = "contactMedium";
-
         public static final String AVATAR = "avatar";
 
+        public static final String PASSPORT = "passport";
     }
+
     // Serializing Dto To Json object.
-    public static String Serializer (IndividualDto individualDto) {
-        ObjectMapper objectMapper=new ObjectMapper();
+    public static String Serializer(IndividualDto individualDto) {
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json= null;
+        String json = null;
         try {
             json = objectMapper.writeValueAsString(individualDto);
         } catch (JsonProcessingException e) {
@@ -107,8 +121,8 @@ public class IndividualDto {
     //Deserializing from Json to IndividualDto.
     public static IndividualDto Deserializer(String json) {
 
-        ObjectMapper objectMapper=new ObjectMapper()
-                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,false);
+        ObjectMapper objectMapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         IndividualDto individualDto = null;
         try {
             individualDto = objectMapper.readValue(json, IndividualDto.class);
@@ -118,8 +132,8 @@ public class IndividualDto {
         return individualDto;
 
     }
-    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
+    private static Logger logger = Logger.getLogger(IndividualDto.class.getName());
 
 
 }

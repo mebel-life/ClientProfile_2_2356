@@ -10,10 +10,9 @@ import org.intellij.lang.annotations.Pattern;
 import java.util.Collection;
 
 @Schema(description = "модель, описывающая контактную информацию пользователя")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class ContactMediumDto {
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";

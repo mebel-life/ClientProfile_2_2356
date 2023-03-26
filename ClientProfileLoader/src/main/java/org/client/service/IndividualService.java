@@ -1,7 +1,7 @@
 package org.client.service;
 
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 
 public interface IndividualService {
 

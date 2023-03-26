@@ -4,22 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.client.common.entity.Individual;
 import org.intellij.lang.annotations.Pattern;
 
 import java.util.Collection;
 import java.util.UUID;
 
 @Schema(description = "модель, описывающая паспорт РФ пользователя")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class RFPassportDto {
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
     @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор паспорта РФ клиента по стандарту RFC4122")
     @JsonProperty(Fields.UUID)
-    private UUID uuid;
+    private String uuid;
     @Schema(example = "4800c301-50a5-46f9-8c5f-6d6b3fbc55nf", description = "Идентификатор клиента по стандарту RFC4122")
     @Pattern(value = UUID_PATTERN)
     @JsonProperty(Fields.INDIVIDUAL_UUID)
@@ -56,7 +56,8 @@ public class RFPassportDto {
     private DocumentType documentType = DocumentType.RFPassport;
     @Hidden
     @JsonProperty(Fields.INDIVIDUAL)
-    private Collection<IndividualDto> individual;
+    @ToString.Exclude
+    private IndividualDto individual;
 
 
     public static class Fields {

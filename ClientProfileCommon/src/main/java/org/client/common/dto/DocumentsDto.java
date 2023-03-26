@@ -10,8 +10,7 @@ import java.util.Collection;
 
 
 @Schema(description = "модель, описывающая документы пользователя")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

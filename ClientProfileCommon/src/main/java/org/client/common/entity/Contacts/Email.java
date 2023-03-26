@@ -1,12 +1,14 @@
-package org.client.entity.Contacts;
+package org.client.common.entity.Contacts;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.client.entity.ContactMedium;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -16,8 +18,8 @@ import javax.persistence.*;
 @Builder
 public class Email {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String uuid;
 
     private String value;

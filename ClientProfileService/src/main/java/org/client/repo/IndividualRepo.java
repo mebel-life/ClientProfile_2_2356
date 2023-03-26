@@ -1,9 +1,9 @@
 package org.client.repo;
 
-import org.client.entity.ContactMedium;
-import org.client.entity.Documents;
-import org.client.entity.Individual;
-import org.client.entity.RFPassport;
+import org.client.common.entity.ContactMedium;
+import org.client.common.entity.Documents;
+import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +22,9 @@ public interface IndividualRepo extends JpaRepository<Individual, String>{
     Optional<Individual> findIndividualByIcp(String icp); //находит только имя, фио, uuid. Остальные поля не находит...
 
     //  ищем все поля пользователя по icp
-    @Query(value = "SELECT * FROM public.individual where icp = :icp", nativeQuery = true)
+    @Query(value = "select distinct i from Individual i join fetch i.passport where i.icp = :icp")
     Individual findAllFieldsByIcp(@Param("icp") String icp);
+
 
     @Transactional
     @Modifying(clearAutomatically = true)
@@ -61,4 +62,6 @@ public interface IndividualRepo extends JpaRepository<Individual, String>{
     void rewriteContactDocPassp(@Param("contactUuid") String contactUuid, @Param("documentUuid") String documentUuid,
                                       @Param("passpId") UUID passpId, @Param("individUuid") String individUuid);
 
+    @Query(value = "from Individual as indiv join fetch indiv.passport as passport where passport.series = :series and passport.number = :number")
+    Individual findByPassport(String series, String number);
 }
