@@ -2,8 +2,8 @@ package org.client.controller;
 
 import org.client.model.JwtRequest;
 import org.client.model.JwtResponse;
-import org.client.JwtUserDetailsService;
-import org.client.RedisJwtService;
+import org.client.service.JwtUserDetailsService;
+import org.client.service.RedisJwtService;
 import org.client.token.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;

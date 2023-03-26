@@ -3,8 +3,8 @@ package org.client.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.client.dto.IndividualUpdateDto;
-import org.client.InteractionWithCPLoader;
-import org.client.InteractionWithCPService;
+import org.client.service.InteractionWithCPLoader;
+import org.client.service.InteractionWithCPService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 

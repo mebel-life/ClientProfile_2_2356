@@ -2,7 +2,7 @@ package org.client.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
-import org.client.JwtUserDetailsService;
+import org.client.service.JwtUserDetailsService;
 import org.client.token.JwtTokenUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

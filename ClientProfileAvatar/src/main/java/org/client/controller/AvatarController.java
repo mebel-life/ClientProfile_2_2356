@@ -2,7 +2,7 @@ package org.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.client.common.dto.AvatarDto;
-import org.client.AvatarService;
+import org.client.service.AvatarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
