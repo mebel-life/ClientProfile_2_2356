@@ -20,6 +20,7 @@ import java.util.UUID;
 public interface IndividualRepo extends JpaRepository<Individual, String>{
 
     Optional<Individual> findIndividualByIcp(String icp); //находит только имя, фио, uuid. Остальные поля не находит...
+    Individual findByUuid(String uuid);
 
     //  ищем все поля пользователя по icp
     @Query(value = "select distinct i from Individual i join fetch i.passport where i.icp = :icp")

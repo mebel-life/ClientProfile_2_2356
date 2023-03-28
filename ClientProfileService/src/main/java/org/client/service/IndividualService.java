@@ -32,4 +32,6 @@ public interface IndividualService {
     void checkIsArchived(IndividualDto individualDto);
 
     void addClient(IndividualDto individualDto);
+
+    IndividualDto getClientUuid(String uuid);
 }

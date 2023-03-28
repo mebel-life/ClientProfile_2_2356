@@ -1,16 +1,13 @@
 package org.client.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.client.common.dto.AvatarDto;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -30,5 +27,4 @@ public class Avatar {
     @Lob
     @Column
     private byte[] byteSize;
-
 }

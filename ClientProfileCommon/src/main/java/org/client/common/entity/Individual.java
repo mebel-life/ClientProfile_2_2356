@@ -58,4 +58,8 @@ public class Individual {
     @OneToMany(mappedBy = "individual", cascade = CascadeType.ALL, orphanRemoval = true)  //у одного клиента может быть много кошельков. Но один кошелек может ссылаться только на одного клиента
     private Collection<Wallet> wallets;
 
+    @ManyToOne
+    @JoinColumn(name = "avatar_uuid")
+    private Avatar avatar;
+
 }

@@ -151,4 +151,10 @@ public class IndividualServiceImpl implements IndividualService {
             throw new ArchivedClientException(String.format("Client with this ICP is archived, actual ICP is %s", individualDto.getActualIcp()));
         }
     }
+
+    @Override
+    public IndividualDto getClientUuid(String uuid) {
+        Individual individual = individualRepo.findByUuid(uuid);
+        return individualUtils.convertToDto(individual);
+    }
 }
