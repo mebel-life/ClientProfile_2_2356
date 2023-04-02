@@ -1,12 +1,12 @@
 package org.client.controllers;
 
+import lombok.extern.slf4j.Slf4j;
+import org.client.common.dto.PhoneNumberDto;
+import org.client.common.entity.Contacts.Email;
 import org.client.common.entity.Individual;
 import org.client.common.entity.RFPassport;
 import org.client.service.IndividualService;
-import org.client.util.DataInfoHandler;
-import org.client.util.NoSuchIndividualException;
-import org.client.util.IndividualWithSuchICPExists;
-import org.client.util.PassportException;
+import org.client.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.client.common.entity.Contacts.PhoneNumber;
 
 /**
  * REST controller for individual
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 public class IndividualRESTController {
 
     private IndividualService individualService;
+
     Logger logger = LoggerFactory.getLogger(IndividualRESTController.class);
     @Autowired
     public void setIndividualService(IndividualService individualService) {
@@ -55,7 +58,7 @@ public class IndividualRESTController {
     public ResponseEntity<DataInfoHandler> saveRFPassport(@RequestBody RFPassport rfPassport, @PathVariable("icp") String icp) {
         try {
             Individual individual = individualService.findByIcp(icp);
-            individual.setRfPassport(rfPassport);
+//            individual.setRfPassport(rfPassport);
             logger.info("Saving RF Passport");
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DataIntegrityViolationException e) {
@@ -63,5 +66,27 @@ public class IndividualRESTController {
         }
     }
 
+    @PostMapping(value = "/phone")
+    public ResponseEntity<DataInfoHandler> savePhoneNum(@RequestBody PhoneNumber phoneNumber){
+        try{
+            individualService.savePhoneNumber(phoneNumber);
+            log.info("saving PhoneNumber with uuid " +
+                    phoneNumber.getUuid()+" and with number " + phoneNumber.getValue()+phoneNumber);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (DataIntegrityViolationException e){
+            throw new PhoneNumberWithSuchValueExists("PhoneNumber with such value Exists");
+        }
+    }
+
+    @PostMapping(value = "/email")
+    public ResponseEntity<DataInfoHandler> saveEmail(@RequestBody Email email){
+        try{
+            individualService.saveEmail(email);
+            log.info("saving Email");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (DataIntegrityViolationException e){
+            throw new EmailWithSuchValueExists("Email with such value Exists");
+        }
+    }
 
 }

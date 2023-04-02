@@ -21,7 +21,8 @@ import java.util.logging.Logger;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @ToString
 public class IndividualDto {
 
@@ -105,10 +106,10 @@ public class IndividualDto {
     }
 
     // Serializing Dto To Json object.
-    public static String Serializer(IndividualDto individualDto) {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public static String Serializer (IndividualDto individualDto) {
+        ObjectMapper objectMapper=new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json = null;
+        String json= null;
         try {
             json = objectMapper.writeValueAsString(individualDto);
         } catch (JsonProcessingException e) {
@@ -132,8 +133,8 @@ public class IndividualDto {
         return individualDto;
 
     }
+    private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
-    private static Logger logger = Logger.getLogger(IndividualDto.class.getName());
 
 
 }

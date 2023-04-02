@@ -2,11 +2,6 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
-      <option name="id" value="AsposeJavaAPI" />
-      <option name="name" value="Aspose Java API" />
-      <option name="url" value="https://releases.aspose.com/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="mulesoft" />
       <option name="name" value="mulesoft" />
       <option name="url" value="https://repository.mulesoft.org/nexus/content/repositories/public/" />
@@ -19,17 +14,7 @@
     <remote-repository>
       <option name="id" value="AsposeJavaAPI" />
       <option name="name" value="Aspose Java API" />
-      <option name="url" value="http://repository.aspose.com/repo/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="AsposeJavaAPI" />
-      <option name="name" value="Aspose Java API" />
       <option name="url" value="https://releases.aspose.com/imaging/java/22-12/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="AsposeJavaAPI" />
-      <option name="name" value="Aspose Java API" />
-      <option name="url" value="https://releases.aspose.com/java/repo/com/aspose/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -37,14 +22,39 @@
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="AsposeJavaAPI" />
-      <option name="name" value="Aspose Java API" />
-      <option name="url" value="https://releases.aspose.com/java/repo/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="nexus.pentaho.org" />
       <option name="name" value="nexus.pentaho.org" />
       <option name="url" value="https://nexus.pentaho.org/content/groups/omni/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="YOUR-PROJECT-NAME-mvn-repo" />
+      <option name="name" value="YOUR-PROJECT-NAME-mvn-repo" />
+      <option name="url" value="com.github.sonus21.rqueue.web" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="AsposeJavaAPI" />
+      <option name="name" value="Aspose Java API" />
+      <option name="url" value="https://repository.aspose.com/repo/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="AsposeJavaAPI" />
+      <option name="name" value="Aspose Java API" />
+      <option name="url" value="https://releases.aspose.com/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="AsposeJavaAPI" />
+      <option name="name" value="Aspose Java API" />
+      <option name="url" value="http://repository.aspose.com/repo/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="AsposeJavaAPI" />
+      <option name="name" value="Aspose Java API" />
+      <option name="url" value="https://releases.aspose.com/java/repo/com/aspose/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="AsposeJavaAPI" />
+      <option name="name" value="Aspose Java API" />
+      <option name="url" value="https://releases.aspose.com/java/repo/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />
@@ -52,9 +62,9 @@
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="AsposeJavaAPI" />
-      <option name="name" value="Aspose Java API" />
-      <option name="url" value="https://repository.aspose.com/repo/" />
+      <option name="id" value="ClientProfileUpdate" />
+      <option name="name" value="ClientProfileUpdate" />
+      <option name="url" value="http://localhost/repo" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="openCV" />

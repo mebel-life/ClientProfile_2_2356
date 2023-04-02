@@ -1,9 +1,10 @@
 package org.client.service;
 
 import org.client.common.dto.IndividualDto;
+import org.client.common.entity.ContactMedium;
 import org.client.common.entity.Individual;
+import org.client.common.entity.RFPassport;
 import org.springframework.stereotype.Service;
-
 
 import java.util.Date;
 import java.util.List;

@@ -1,9 +1,7 @@
 package org.client.common.entity.Contacts;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.client.common.entity.ContactMedium;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -22,4 +20,10 @@ public class PhoneNumber {
     private String uuid;
 
     private String value;
+
+    @ManyToOne
+    @JoinColumn(name = "contact_medium_id1")
+    @ToString.Exclude
+    private ContactMedium contactMedium;
+    private Boolean verification;
 }

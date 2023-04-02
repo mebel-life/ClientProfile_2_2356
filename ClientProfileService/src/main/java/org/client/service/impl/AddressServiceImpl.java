@@ -1,6 +1,8 @@
 package org.client.service.impl;
 
 import lombok.AllArgsConstructor;
+
+import lombok.extern.slf4j.Slf4j;
 import org.client.common.dto.AddressDto;
 import org.client.common.dto.IndividualDto;
 import org.client.common.entity.*;

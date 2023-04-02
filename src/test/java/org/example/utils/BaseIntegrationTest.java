@@ -1,4 +1,4 @@
-package org.client.utils;
+package org.example.utils;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

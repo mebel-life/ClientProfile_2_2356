@@ -1,5 +1,23 @@
 version: '1.0'
 services:
+
+  redis:
+    image: redis
+    container_name: 'some-redis'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 32768:6379
+
+
+  app:
+    build: ./
+    container_name: 'java-app'
+    ports:
+      - 8084:8084
+
+
+
   postgres_db:
     build:
       context: .
@@ -12,3 +30,4 @@ services:
     ports:
           - "5432:5432"
     restart: unless-stopped
+
