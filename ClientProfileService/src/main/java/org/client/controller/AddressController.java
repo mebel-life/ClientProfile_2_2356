@@ -7,8 +7,13 @@ import org.client.common.dto.IndividualDto;
 import org.client.service.AddressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
@@ -51,7 +56,7 @@ public class AddressController {
     }
 
     @PostMapping("/delete")  //post запрос с zipcode адреса в  теле
-    @Operation(summary = "удаление адреса по zipcode")
+    @Operation(summary = "удаление адреса по zipcode") //????? uuid!!!!!!
     public ResponseEntity<Void> deleteAddressByZip(@RequestBody AddressDto dto) {
 
         addressService.deleteAddress(dto.getZipCode());

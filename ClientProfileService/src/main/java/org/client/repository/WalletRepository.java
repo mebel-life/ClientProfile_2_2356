@@ -1,20 +1,26 @@
-package org.client.repo;
+package org.client.repository;
 
-import org.client.common.entity.*;
+import org.client.common.entity.Individual;
+import org.client.common.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface WalletRepo extends JpaRepository<Wallet, String>{
+public interface WalletRepository extends JpaRepository<Wallet, String>{
 
     Optional<Wallet> findWalletByUuid (String uuid);
+
+    Optional<Wallet> findWalletByEuroWallet (String euroWallet);
+
+    Optional<Wallet> findWalletByUsdWallet (String usdWallet);
+
+    Optional<Wallet> findWalletByRubWallet (String rubWallet);
 
     @Transactional
     @Modifying(clearAutomatically = true)
