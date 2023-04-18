@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import net.sourceforge.tess4j.TesseractException;
 import org.client.Entity.RFPassport;
 import org.client.dto.DocumentDto;
-import org.client.DocumentService;
+import org.client.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

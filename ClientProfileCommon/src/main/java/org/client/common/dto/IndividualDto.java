@@ -133,6 +133,14 @@ public class IndividualDto {
         return individualDto;
 
     }
+
+    public Collection<ContactMediumDto> getContactMedium() {
+        //TODO implement getContactMedium()
+        return null;
+    }
+    public void setContactMedium(Collection<ContactMediumDto> contactMediumDtos) {
+        //TODO implement setContactMedium()
+    }
     private static Logger logger=Logger.getLogger(IndividualDto.class.getName());
 
 

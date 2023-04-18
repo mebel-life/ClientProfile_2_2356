@@ -2,13 +2,12 @@ package org.client.service.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.client.common.dto.PhoneNumberDto;
 import org.client.common.entity.Contacts.Email;
 import org.client.common.entity.Contacts.PhoneNumber;
 import org.client.common.entity.Individual;
 import org.client.common.entity.RFPassport;
 import org.client.repositories.EmailRepository;
-import org.client.repositories.IndividualRepository;
+import org.client.repositories.IndividualRepositoryExtra;
 import org.client.repositories.PhoneNumberRepository;
 import org.client.service.IndividualService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class IndividualServiceImpl implements IndividualService {
-    private IndividualRepository individualRepository;
+    private IndividualRepositoryExtra individualRepositoryExtra;
     private PhoneNumberRepository phoneNumberRepository;
     private EmailRepository emailRepository;
 
@@ -36,19 +35,19 @@ public class IndividualServiceImpl implements IndividualService {
     }
 
     @Autowired
-    public void setIndividualRepository(IndividualRepository individualRepository) {
-        this.individualRepository = individualRepository;
+    public void setIndividualRepository(IndividualRepositoryExtra individualRepositoryExtra) {
+        this.individualRepositoryExtra = individualRepositoryExtra;
     }
 
     @Override
     public Individual findByIcp(String icp) {
-        return individualRepository.findByIcp(icp);
+        return individualRepositoryExtra.findByIcp(icp);
     }
 
     @Override
     @Transactional
     public void saveIndividual(Individual individual) {
-        individualRepository.save(individual);
+        individualRepositoryExtra.save(individual);
     }
 
     @Override
