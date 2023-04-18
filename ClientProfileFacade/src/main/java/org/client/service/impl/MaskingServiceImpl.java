@@ -6,10 +6,7 @@ import org.client.common.dto.EmailDto;
 import org.client.common.dto.IndividualDto;
 import org.client.common.dto.PhoneNumberDto;
 import org.client.common.dto.RFPassportDto;
-import org.client.dto.shortIndividual.IndividualClientDto;
-import org.client.dto.shortIndividual.IndividualDocStatusDto;
-import org.client.dto.shortIndividual.IndividualShortDto;
-import org.client.dto.shortIndividual.RFPassportShortDto;
+import org.client.dto.shortIndividual.*;
 import org.client.service.MaskingService;
 import org.client.util.ClientContactsException;
 import org.client.util.ClientInfoException;
@@ -48,10 +45,10 @@ public class MaskingServiceImpl implements MaskingService {
         if (individual != null) {
             maskedIndividual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
             maskedIndividual.setSurname(maskSurname(individual.getSurname()));
-            if (individual.getContactMedium() != null) {
-                individual.getContactMedium().forEach(this::maskContacts);
-            }
-            maskedIndividual.setContactMedium(individual.getContactMedium());
+//            if (individual.getContactMedium() != null) {
+//                individual.getContactMedium().forEach(this::maskContacts);
+//            }
+//            maskedIndividual.setContactMedium(individual.getContactMedium());
             if (individual.getPassport() != null) {
                 individual.getPassport().forEach(this::maskRFPassport);
             }
@@ -216,6 +213,17 @@ public class MaskingServiceImpl implements MaskingService {
             throw new DocumentException("No passport found");
         }
         return passport;
+    }
+    @Override
+    public IndividualWalletDto maskIndividual(IndividualWalletDto individual) {
+        if (individual.getWallet() != null ) {
+            individual.setFullName(maskFullName(individual.getFullName(), individual.getSurname()));
+            individual.setSurname(maskSurname(individual.getSurname()));
+            //individual.setWallet(maskWallet(individual.getWallet()));
+        } else {
+            throw new ClientInfoException("User not wallet");
+        }
+        return individual;
     }
 
 }

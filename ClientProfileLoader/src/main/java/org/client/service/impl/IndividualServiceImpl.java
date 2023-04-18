@@ -2,7 +2,6 @@ package org.client.service.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.client.common.dto.PhoneNumberDto;
 import org.client.common.entity.Contacts.Email;
 import org.client.common.entity.Contacts.PhoneNumber;
 import org.client.common.entity.Individual;

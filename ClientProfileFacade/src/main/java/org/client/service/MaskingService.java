@@ -2,10 +2,7 @@ package org.client.service;
 
 
 import org.client.common.dto.*;
-import org.client.dto.shortIndividual.IndividualClientDto;
-import org.client.dto.shortIndividual.IndividualDocStatusDto;
-import org.client.dto.shortIndividual.IndividualShortDto;
-import org.client.dto.shortIndividual.RFPassportShortDto;
+import org.client.dto.shortIndividual.*;
 
 public interface MaskingService {
     String maskTextInfo(String text);
@@ -26,6 +23,6 @@ public interface MaskingService {
 
     RFPassportDto maskRFPassport(RFPassportDto passport);
 
-
     RFPassportShortDto maskRFPassport(RFPassportShortDto passport);
+    IndividualWalletDto maskIndividual(IndividualWalletDto individual);
 }

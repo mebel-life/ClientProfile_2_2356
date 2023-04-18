@@ -1,15 +1,18 @@
 package org.client.common.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.intellij.lang.annotations.Pattern;
 
-@Schema(description = "Модель, описывающая баланс пользоватяле в ЛК банка")
+@Schema(description = "Модель, описывающая баланс пользователя в ЛК банка")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WalletDto {
 
     public static final String UUID_PATTERN = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
@@ -27,13 +30,17 @@ public class WalletDto {
     @JsonProperty(Fields.INDIVIDUAL_ICP)
     private String individualIcp;
 
+
+
     @Schema(example = "30101810645250000416 ", description = "Рублевый счет клиента")
     @JsonProperty(Fields.RUB_WALLET)
     private String rubWallet;
 
+
     @Schema(example = "30101810645250000416123378 ", description = "Валютный счет клиента (евро)")
     @JsonProperty(Fields.EUR_WALLET)
     private String euroWallet;
+
 
     @Schema(example = "30101810645250000416123378 ", description = "Валютный счет клиента (доллар США)")
     @JsonProperty(Fields.USD_WALLET)
