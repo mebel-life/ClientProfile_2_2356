@@ -2,15 +2,11 @@ package org.client.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.client.common.dto.AvatarDto;
 import org.client.service.AvatarService;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -27,14 +23,12 @@ public class AvatarController {
     //    private final JmsTemplate jmsTemplate;
     private final AvatarService avatarService;
 
-    //получаю ответ от сервиса на загрузку аватара, загрузил пять картинок в ресурсы, пытась их передать в метод по формированию в AvatarDto
-    //метод getRandomImage() - выдает случайное число от 1 до 5 соответсвуещее названию файла Аватара
+    //получаю ответ от сервиса на загрузку аватара, загрузил 6 картинок в ресурсы, передаю их в метод по формированию в AvatarDto
 
     @PostMapping
-    public ResponseEntity<Void> uploadAvatar(@RequestParam String uuid) throws IOException {
-        log.info("Uploading avatar");
-        avatarService.uploadAvatar((MultipartFile) new ClassPathResource(new StringBuilder().append("image/").append(avatarService.getRandomImage()).append(".jpg").toString()), uuid);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<AvatarDto> uploadAvatar(@RequestBody String uuid, @RequestParam String icp) throws IOException {
+        log.info("Uploading avatar, uuid = " + uuid);
+        return new ResponseEntity<>(avatarService.uploadAvatar(uuid, icp), HttpStatus.OK);
     }
 
 

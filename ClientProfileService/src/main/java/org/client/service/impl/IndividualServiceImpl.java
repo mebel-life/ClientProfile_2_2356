@@ -3,6 +3,7 @@ package org.client.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.client.Exception.IncorrectRequestException;
+import org.client.common.dto.AvatarDto;
 import org.client.common.dto.IndividualDto;
 import org.client.common.entity.*;
 import org.client.repository.IndividualRepository;
@@ -138,5 +139,11 @@ public class IndividualServiceImpl implements IndividualService {
         if (individualDto.isArchived()) {
             throw new ArchivedClientException(String.format("Client with this ICP is archived, actual ICP is %s", individualDto.getActualIcp()));
         }
+    }
+
+
+    @Override
+    public IndividualDto getClientIcp(String icp) {
+        return individualUtils.convertToDto(individualRepo.findByIcp(icp));
     }
 }

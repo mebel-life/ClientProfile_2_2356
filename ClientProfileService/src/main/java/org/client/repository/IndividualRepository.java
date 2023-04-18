@@ -1,4 +1,4 @@
-package org.client.repository;
+package org.client.repo;
 
 import org.client.common.entity.ContactMedium;
 import org.client.common.entity.Documents;
@@ -15,10 +15,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IndividualRepository extends JpaRepository<Individual, String>{
+public interface IndividualRepo extends JpaRepository<Individual, String>{
 
-    Optional<Individual> findIndividualByIcp(String icp);
-    Optional<Individual> findIndividualByUuid(String uuid);
+    Optional<Individual> findIndividualByIcp(String icp); //находит только имя, фио, uuid. Остальные поля не находит...
+    Individual findByIcp(String icp);
 
     @Transactional
     @Modifying(clearAutomatically = true)

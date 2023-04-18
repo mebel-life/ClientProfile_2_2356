@@ -33,7 +33,7 @@ public class IndividualRESTController {
         this.individualService = individualService;
     }
 
-    @GetMapping("/clients/{icp}")
+    @GetMapping("/clients/{icp}") // http://localhost:8085/api/clients/2340
     public ResponseEntity<Individual> getIndividual(@PathVariable("icp") String icp) {
         Individual individual = individualService.findByIcp(icp);
 

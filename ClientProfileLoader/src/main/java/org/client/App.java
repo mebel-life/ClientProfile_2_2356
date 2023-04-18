@@ -11,11 +11,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class App {
 
-    @KafkaListener(topics="load")
-    public void orderListener(ConsumerRecord<Long, IndividualDto> record){
-        System.out.println(record.key());
-        System.out.println(record.value());
-    }
+//    @KafkaListener(topics="load")
+//    public void orderListener(ConsumerRecord<Long, IndividualDto> record){
+//        System.out.println(record.key());
+//        System.out.println(record.value());
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);

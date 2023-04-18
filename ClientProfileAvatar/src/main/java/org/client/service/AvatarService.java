@@ -10,7 +10,7 @@ public interface AvatarService {
 
 //    String uploadAvatar(MultipartFile file) throws IOException;
 
-    void uploadAvatar(MultipartFile file, String uuid) throws IOException;
+    AvatarDto uploadAvatar(String uuid, String icp) throws IOException;
 
 //    byte[] getAvatar (String uuid);
 //    AvatarDto getInfoByUuid(String uuid);
