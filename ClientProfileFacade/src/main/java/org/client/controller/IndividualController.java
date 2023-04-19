@@ -9,6 +9,7 @@ import org.client.common.util.AuthUtil;
 import org.client.dto.shortIndividual.IndividualClientDto;
 import org.client.dto.shortIndividual.IndividualDocStatusDto;
 import org.client.dto.shortIndividual.IndividualShortDto;
+import org.client.dto.shortIndividual.IndividualWalletDto;
 import org.client.service.MaskingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -18,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -133,5 +133,29 @@ public class IndividualController {
         }
         logger.log(Level.INFO, "Client info sent");
         return new ResponseEntity<>(maskingService.maskIndividual(individualClientDto), HttpStatus.OK);
+    }
+
+    //Метод возвращает объект ResponseEntity<IndividualWalletDto>,
+    // который содержит информацию о клиенте, включая ФИО, уникальный
+    // идентификатор клиента (ICP), основную валюту и текущий баланс кошелька.
+    @GetMapping("/wallet")
+    @Operation(summary = "Частичная информация о клиенте по ICP(ФИО, icp, Кошелек[ основная валюта и текущий баланс]")
+    public ResponseEntity<IndividualWalletDto> getClientWallet(@Parameter(description = "ICP уникальный ключ клиента") String icp,
+                                                               HttpServletRequest request) {
+        try {
+            authUtil.checkAuth(request);
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(401).build();
+        }
+        IndividualWalletDto individualWalletDto = new IndividualWalletDto();
+        try {
+            ResponseEntity<IndividualWalletDto> responseEntity =
+                    restTemplate.exchange(UriVariables.CLIENT_PROFILE_SERVICE_PATH + UriVariables.INDIVIDUAL_PATH, HttpMethod.GET, http, IndividualWalletDto.class, icp);
+            individualWalletDto = responseEntity.getBody();
+        } catch (RuntimeException e) {
+            logger.log(Level.WARNING, "Client not found");
+        }
+        logger.log(Level.INFO, "Client info sent");
+        return new ResponseEntity<>(maskingService.maskIndividual(individualWalletDto), HttpStatus.OK);
     }
 }

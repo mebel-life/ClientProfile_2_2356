@@ -3,6 +3,7 @@ package org.client.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.client.common.dto.WalletDto;
+import org.client.common.enums.Currency;
 import org.client.service.WalletService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,16 @@ public class WalletController {
 
         walletService.deleteWallet(dto.getUuid(), uuidFromparam);
         return ResponseEntity.ok("wallet  was deleted !");
+    }
+
+
+    ///////////////////
+    @GetMapping("/convertToRub/{icp}/{currency}")
+    @Operation(summary = "Информация о кошельке по icp клиента")
+    public ResponseEntity<List<WalletDto>> convertToRub(@Parameter(description = "icp") String Icp,
+                                                        @PathVariable(value="icp") String icp,
+                                                        @PathVariable(value="currency") Currency currency) throws Exception {
+        return new ResponseEntity<>(walletService.convertToRub(icp, currency), HttpStatus.OK);
     }
 
 }
